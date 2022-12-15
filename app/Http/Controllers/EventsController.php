@@ -24,7 +24,6 @@ class EventsController extends Controller
         return $service->addEvent($data);
     }
 
-
     public function show(){
 
     }

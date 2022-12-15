@@ -26,4 +26,8 @@ class Events extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function eventDate(){
+        return $this->hasMany(EventTime::class, 'event_id');
+    }
+
 }

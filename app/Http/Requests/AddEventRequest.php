@@ -33,6 +33,7 @@ class AddEventRequest extends FormRequest
             'meta_keywords' => ['required','string'],
             'meta_desc' => ['required','string'],
             'status' => ['required','numeric'],
+            'eventDate' => 'array'
         ];
     }
 }
