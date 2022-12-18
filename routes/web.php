@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
+//Route::get('/login', \App\Http\Livewire\LoginComponent::class)->name('login.index');
+//Route::get('/login', \App\Http\Controllers\AuthController::class, 'sing')->name('login.index');
+Route::controller(\App\Http\Controllers\AuthController::class)->group(function(){
+    Route::get('/login', 'sign');
+    Route::post('/login', 'sendSms');
 });

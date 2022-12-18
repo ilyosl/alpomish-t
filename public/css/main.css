@@ -1,0 +1,117 @@
+/* Header Start */
+.header {
+  background: #FFFFFF;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08); }
+  .header .nav-link {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    color: #6A6A6A; }
+
+/* Header End */
+/* Footer Start */
+.footer {
+  background: #0A075F;
+  padding-top: 40px;
+  padding-bottom: 20px; }
+
+/* Footer End */
+/* Login Start */
+.login {
+  margin: 100px 0; }
+  .login .bg-white {
+    box-shadow: 0 4px 24px 4px rgba(36, 37, 101, 0.15); }
+  .login .form-check-input:checked {
+    background-color: #387EC1; }
+  .login .form-check-input {
+    width: 24px;
+    height: 24px; }
+
+/* Login End */
+.news {
+  background-image: url("../images/snow_3.png");
+  background-repeat: no-repeat;
+  background-position-y: 350px;
+  padding-bottom: 100px; }
+  .news-card_img {
+    height: 285px;
+    object-fit: cover;
+    border-radius: 20px; }
+    .news-card_img img {
+      width: 100%;
+      height: 100%; }
+  .news-card_title {
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    color: #242565; }
+  .news-card_text {
+    margin-top: 50px;
+    font-family: 'DM Sans', sans-serif;
+    color: #000; }
+  .news-card_time {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #A5A5A5; }
+
+.bg-snow {
+  background-image: url("../images/snow_2.png");
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: bottom; }
+
+.bg-snow-2 {
+  background-image: url("../images/snow.png");
+  background-repeat: no-repeat;
+  background-position-y: 150px; }
+
+.basket-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 140px; }
+
+.login-btn {
+  background: linear-gradient(90deg, #47A8DF 18.57%, #246BB5 55.49%, #387EC1 100%);
+  border-radius: 8px;
+  color: white; }
+
+.custom-swiper-btn {
+  background: #D9D9D9;
+  border-radius: 12px;
+  color: #969FA8;
+  width: 60px;
+  height: 60px;
+  font-size: 24px; }
+
+@media (max-width: 1024px) {
+  .custom-swiper-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px; } }
+
+.header-carousel .custom-swiper-btn::after {
+  display: none; }
+
+.custom-dropdown {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.custom-dropdown::after {
+  display: none; }
+
+.card-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 15px;
+  width: 100%; }
+
+/*# sourceMappingURL=main.css.map */
