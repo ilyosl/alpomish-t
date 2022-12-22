@@ -17,6 +17,18 @@
   padding-bottom: 20px; }
 
 /* Footer End */
+/* Sidebar Start */
+.sidebar {
+  position: absolute;
+  background: #fff;
+  padding: 20px;
+  right: 0;
+  top: 0;
+  width: 360px;
+  height: 100%;
+  z-index: 9999; }
+
+/* Sidebar End */
 /* Login Start */
 .login {
   margin: 100px 0; }
@@ -113,5 +125,19 @@
   position: absolute;
   top: 15px;
   width: 100%; }
+
+.card-3d {
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .card-3d-img img {
+    position: absolute; }
+
+.line-border {
+  height: 1px;
+  background-color: #FFFFFF;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23BCC3D0FF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"); }
 
 /*# sourceMappingURL=main.css.map */
