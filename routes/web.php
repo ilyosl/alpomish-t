@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::domain('kassa.muzsaroy.uzb')->group(function (){
-    Route::get('/', function () {
-        return "welcome kassir kabinet";
-    });
+Route::domain('kassa.muzsaroy.uzb')->controller(\App\Http\Controllers\KassirController::class)->group(function (){
+    Route::get('/', 'index');
 });
 
 Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
@@ -30,3 +28,7 @@ Route::controller(\App\Http\Controllers\AuthController::class)->group(function()
     Route::get('/login', 'sign');
     Route::post('/login', 'sendSms');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
