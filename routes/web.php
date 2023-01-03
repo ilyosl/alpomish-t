@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
+Route::domain('kassa.muzsaroy.uzb')->group(function (){
+    Route::get('/', function () {
+        return "welcome kassir kabinet";
+    });
+});
+
 Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
 //Route::get('/login', \App\Http\Livewire\LoginComponent::class)->name('login.index');
 //Route::get('/login', \App\Http\Controllers\AuthController::class, 'sing')->name('login.index');
