@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('title', 'Авторизация')
 @section('content')
-    @livewire('phone-verification')
     <div>
         <div class="login">
             <div class="container">

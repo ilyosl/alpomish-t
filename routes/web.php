@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::domain('kassa.muzsaroy.uzb')->controller(\App\Http\Controllers\KassirController::class)->group(function (){
     Route::get('/', 'index');
+    Route::post('/get-info-by-qr', 'getInfoByQr');
 });
 
 Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');

@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(5)->create();
+//         \App\Models\User::factory(5)->create();
 //           Events::factory()->create();
-         /*\App\Models\User::factory()->create([
+         \App\Models\User::factory()->create([
              'username' => '998903301345'
-         ]);*/
-        $this->call([
+         ]);
+        /*$this->call([
             EventsSeeder::class
-        ]);
+        ]);*/
     }
 }

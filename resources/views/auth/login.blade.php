@@ -6,7 +6,7 @@
 <form method="POST" action="{{ route('login') }}">
     @csrf
     <div class="input-group mb-3">
-        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" required placeholder="Email" value="{{ old('username') }}" autofocus autocomplete="username">
+        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" required placeholder="username" value="{{ old('username') }}" autofocus autocomplete="username">
         <div class="input-group-append">
             <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
