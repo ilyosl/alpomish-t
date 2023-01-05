@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\QrcodeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class KassirController extends Controller
 {
@@ -16,6 +17,7 @@ class KassirController extends Controller
     }
     public function getInfoByQr(QrcodeRequest $request){
         $data = $request->validated();
-        return response(['qrcode'=>$data]);
+
+        return response($data);
     }
 }

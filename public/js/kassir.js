@@ -8,15 +8,18 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': token
             }
         });
-        let qrcode = $('qrcode').val()
+        let qrcode = $('#qrcode').val()
 
         $.ajax({
             type: 'POST',
             url: '/get-info-by-qr',
             data: {qrcode: qrcode},
-            // dataType: 'json',
+            dataType: 'json',
             success: function (data){
                 console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
             }
         })
     });
