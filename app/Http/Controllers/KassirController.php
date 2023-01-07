@@ -17,7 +17,6 @@ class KassirController extends Controller
     }
     public function getInfoByQr(QrcodeRequest $request){
         $data = $request->validated();
-
         return response($data);
     }
 }
