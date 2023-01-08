@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deviceList', function (Blueprint $table) {
-            $table->id()->autoIncrement()->primary();
-            $table->ipAddress('ip_address');
-            $table->smallInteger('type')->default('0')->comment('0-enter, 1-exit');
+        Schema::create('postDeviceLog', function (Blueprint $table) {
+            $table->id();
+            $table->ipAddress('device_ip');
+            $table->dateTime('comingDate');
+            $table->jsonb('log');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deviceList');
+        Schema::dropIfExists('postDeviceLog');
     }
 };

@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\DeviceListModel;
 use App\Models\Events;
+use App\Models\PostDeviceLogModel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,9 +20,16 @@ class DatabaseSeeder extends Seeder
     {
 //         \App\Models\User::factory(5)->create();
 //           Events::factory()->create();
-         \App\Models\User::factory()->create([
-             'username' => '998903301345'
-         ]);
+//         \App\Models\User::factory()->create(['username' => '998903301345']);
+         /*DeviceListModel::factory()->create([
+             'ip_address'=>'192.168.0.32',
+             'type'=> 0
+         ]);*/
+        PostDeviceLogModel::factory()->create([
+            'device_ip'=>"192.168.0.31",
+            'comingDate' => '12.12.2022',
+            'log' => "asldkfjalskdf"
+        ]);
         /*$this->call([
             EventsSeeder::class
         ]);*/

@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deviceList', function (Blueprint $table) {
-            $table->id()->autoIncrement()->primary();
-            $table->ipAddress('ip_address');
-            $table->smallInteger('type')->default('0')->comment('0-enter, 1-exit');
+        Schema::table('katokQrcode', function (Blueprint $table) {
+            $table->string('time')->nullable();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deviceList');
+        Schema::dropColumns('katokQrcode','time');
     }
 };
