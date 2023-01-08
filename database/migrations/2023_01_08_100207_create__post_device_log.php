@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('katokQrcode', function (Blueprint $table) {
+        Schema::create('postDeviceLog', function (Blueprint $table) {
             $table->id();
-            $table->string('qrcode');
-            $table->integer('price');
-            $table->smallInteger('status')->default('0');
-            $table->timestampTz('startDate');
-            $table->timestampTz('finishDate');
+            $table->ipAddress('device_ip');
+            $table->dateTime('comingDate');
+            $table->jsonb('log');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('katokQrcode');
+        Schema::dropIfExists('postDeviceLog');
     }
 };

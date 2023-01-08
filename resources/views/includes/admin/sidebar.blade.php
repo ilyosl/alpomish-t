@@ -4,10 +4,7 @@
         <li class="nav-item">
             <a href="/" class="nav-link ">
                 <i class="nav-icon fas fa-align-justify"></i>
-                <p>
-                    Bilet
-{{--                    <span class="badge badge-info right">2</span>--}}
-                </p>
+                <p>Каток</p>
             </a>
         </li>
     </ul>

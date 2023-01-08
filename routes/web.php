@@ -20,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::domain('kassa.muzsaroy.uzb')->controller(\App\Http\Controllers\KassirController::class)->group(function (){
     Route::get('/', 'index');
     Route::post('/get-info-by-qr', 'getInfoByQr');
+    Route::get('/add-person', 'addPerson');
+});
+//\App\Http\Controllers\PostDeviceLogController::class
+Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
+Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(function (){
+    Route::post('/listening', 'index');
 });
 
-Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
 //Route::get('/login', \App\Http\Livewire\LoginComponent::class)->name('login.index');
 //Route::get('/login', \App\Http\Controllers\AuthController::class, 'sing')->name('login.index');
 Route::controller(\App\Http\Controllers\AuthController::class)->group(function(){
