@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::domain('kassa.muzsaroy.uzb')->controller(\App\Http\Controllers\KassirController::class)->group(function (){
+Route::domain('kassa.'.env('APP_URL'))->controller(\App\Http\Controllers\KassirController::class)->group(function (){
     Route::get('/', 'index');
     Route::post('/get-info-by-qr', 'getInfoByQr');
     Route::get('/add-person', 'addPerson');
@@ -26,6 +26,7 @@ Route::domain('kassa.muzsaroy.uzb')->controller(\App\Http\Controllers\KassirCont
 Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
 Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(function (){
     Route::post('/listening', 'index');
+    Route::get('/dump', 'listData');
 });
 
 //Route::get('/login', \App\Http\Livewire\LoginComponent::class)->name('login.index');

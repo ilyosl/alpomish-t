@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deviceList', function (Blueprint $table) {
-            $table->id();
-            $table->ipAddress('ip_address');
-            $table->smallInteger('type')->default('0')->comment('0-enter, 1-exit');
+        Schema::table('katokQrcode', function (Blueprint $table) {
+            $table->integer('jazo_price')->default('0');
+            $table->string('jazo_type')->default('Click');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deviceList');
+        Schema::dropColumns('katokQrcode',['jazo_price','jazo_type ']);
     }
 };

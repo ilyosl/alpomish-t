@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deviceList', function (Blueprint $table) {
+        Schema::create('table_kassa_read', function (Blueprint $table) {
             $table->id();
-            $table->ipAddress('ip_address');
-            $table->smallInteger('type')->default('0')->comment('0-enter, 1-exit');
+            $table->string('ipAddress');
+            $table->foreignIdFor(\App\Models\KatokQrcodeModel::class,'katokqrcode_id')->constrained()->onDelete('CASCADE');
+            $table->smallInteger('is_read')->default('0');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deviceList');
+        Schema::dropIfExists('table_kassa_read');
     }
 };

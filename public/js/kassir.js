@@ -12,6 +12,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: 'POST',
+            // url: 'https://muzsaroy.bgsoft.uz/api/kassa/get-data',
             url: '/get-info-by-qr',
             data: {qrcode: qrcode},
             dataType: 'json',
