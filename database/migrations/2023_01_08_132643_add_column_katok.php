@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('katokQrcode', function (Blueprint $table) {
-            $table->integer('price')->default('0');
             $table->string('type')->default('click');
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropColumns('katokQrcode',['price','type']);
+        Schema::dropColumns('katokQrcode',['type']);
     }
 };
