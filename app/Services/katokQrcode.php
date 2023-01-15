@@ -25,6 +25,7 @@ class katokQrcode
                     'status' => $status
                 ]);
             }
+            sleep(1);
             $openDoor = new openDoor();
             $openDoor->actionDoor($action, $ipaddress);
         }catch (Exception $e){
