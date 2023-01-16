@@ -22,6 +22,11 @@ Route::domain('kassa.'.env('APP_URL'))->controller(\App\Http\Controllers\KassirC
     Route::post('/get-info-by-qr', 'getInfoByQr');
     Route::get('/add-person', 'addPerson');
 });
+Route::domain('admin.'.env('APP_URL'))->middleware('auth')->group(function(){
+    Route::controller(\App\Http\Controllers\admin\AdminController::class)->group(function() {
+        Route::get('/', 'index');
+    });
+});
 //\App\Http\Controllers\PostDeviceLogController::class
 Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
 Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(function (){
@@ -34,6 +39,10 @@ Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(f
 Route::controller(\App\Http\Controllers\AuthController::class)->group(function(){
     Route::get('/login', 'sign');
     Route::post('/login', 'sendSms');
+});
+
+Route::controller(\App\Http\Controllers\RinkInfoController::class)->group(function() {
+    Route::get('/rink-info', 'index');
 });
 
 Auth::routes();
