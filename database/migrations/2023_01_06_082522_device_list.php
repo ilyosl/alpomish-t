@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('deviceList', function (Blueprint $table) {
-            $table->id()->autoIncrement()->primary();
+            $table->id();
             $table->ipAddress('ip_address');
             $table->smallInteger('type')->default('0')->comment('0-enter, 1-exit');
         });

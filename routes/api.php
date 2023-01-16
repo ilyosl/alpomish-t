@@ -20,9 +20,18 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::resource('/event', \App\Http\Controllers\EventsController::class);
+    Route::controller(\App\Http\Controllers\Api\KassaController::class)->group(function (){
+        Route::post('/kassa/get-data', 'getData')->middleware('cors');
+        Route::post('/kassa/check-qrcode', 'checkQrcode')->middleware('cors');
+        Route::post('/kassa/status-qrcode', 'countEnter')->middleware('cors');
+        Route::post('/kassa/extend-qrcode', 'extendQrcode')->middleware('cors');
+        Route::get('/kassa/feed', 'getFeedKatok')->middleware(['cors','throttle:none']);
+        Route::get('/kassa/stat ', 'staticsInfo')->middleware(['cors']);
+    });
 });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('/register', 'register');
+    Route::post('/signup', 'register');
     Route::post('/login', 'login');
 });
+Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);
