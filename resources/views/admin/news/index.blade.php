@@ -1,0 +1,9 @@
+@extends('layouts.admin')
+@section('title')
+    News
+@endsection
+@section('content')
+    <div>
+        News
+    </div>
+@endsection

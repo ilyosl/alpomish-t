@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Кабинет кассира</title>
+    <title>@yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -154,5 +154,12 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="{{asset('dist/js/pages/dashboard.js')}}"></script>--}}
+<script>
+    $(document).ready(function (){
+        $("#calendar").find("td.day").click(function(e){
+            console.log($(this))
+        });
+    });
+</script>
 </body>
 </html>

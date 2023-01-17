@@ -25,6 +25,10 @@ Route::domain('kassa.'.env('APP_URL'))->controller(\App\Http\Controllers\KassirC
 Route::domain('admin.'.env('APP_URL'))->middleware('auth')->group(function(){
     Route::controller(\App\Http\Controllers\admin\AdminController::class)->group(function() {
         Route::get('/', 'index');
+        Route::get('/katok', 'katok');
+    });
+    Route::controller(\App\Http\Controllers\admin\NewsController::class)->group(function(){
+        Route::get('/news', 'index');
     });
 });
 //\App\Http\Controllers\PostDeviceLogController::class

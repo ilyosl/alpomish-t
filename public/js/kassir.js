@@ -24,4 +24,17 @@ $(document).ready(function(){
             }
         })
     });
+    $(function () {
+        // The Calender
+        $('#calendar').datetimepicker({
+            format: 'YYYY-MM-DD',
+            inline: true,
+            language: 'ru',
+        })
+    });
+    let currDate = $("#calendar");
+    currDate.on('click', function (){
+        console.log($(this))
+    })
+
 })

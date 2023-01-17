@@ -1,7 +1,8 @@
 @extends('layouts.admin')
-
-
-@section('section')
+@section('title')
+    Admin panel
+@endsection
+@section('content')
     <div>
         Admin Panel
     </div>
