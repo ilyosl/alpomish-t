@@ -33,5 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::controller(AuthController::class)->group(function () {
     Route::post('/signup', 'register');
     Route::post('/login', 'login');
+    Route::post('/send-sms', 'sendSms');
+    Route::post('/auth-phone', 'loginWithSms');
 });
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);

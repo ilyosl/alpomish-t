@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\CodeSms;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,23 @@ class AuthService
             'user' => $user,
             'token' => $token
         ];
+    }
+    public function storeSmsCode($data){
+        $smsCreate = CodeSms::create([
+            'ip'=>request()->ip(),
+            'code'=>$data['code'],
+            'phone'=>$data['phone'],
+            'expires_at'=>date('Y-m-d H:i:s', (time()+5*60))
+        ]);
+
+        return $smsCreate;
+    }
+    public function checkCodeWithPhone($data){
+        try {
+         return  CodeSms::where(['phone'=>$data['phone'],'code'=>$data['code']])->first;
+        }catch (\Exception $e){
+            abort(404,    'not found');
+        }
     }
     public function isAuth($credentials, $remember) {
 
