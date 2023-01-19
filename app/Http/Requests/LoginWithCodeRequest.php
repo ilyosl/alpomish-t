@@ -24,7 +24,7 @@ class LoginWithCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            "phone" => ['required', 'unique:users,username'],
+            "phone" => 'required|numeric',
             "code" => 'required|numeric',
         ];
     }

@@ -44,9 +44,14 @@ class AuthController extends Controller
         $data = $request->validated();
         $result = $service->checkCodeWithPhone($data);
         if($result){
-            $data['username'] = $data['phone'];
-            $data['password'] = $data['code'];
-            return  $service->StoreNewUser($data);
+            $checkIsNew = User::where(['username'=>$data['phone']])->first();
+            if(empty($checkIsNew)){
+                $data['username'] = $data['phone'];
+                $data['password'] = $data['code'];
+                return  $service->StoreNewUser($data);
+            }else{
+                return ['user'=>$checkIsNew, 'token'=>$service->GetTokenUser($checkIsNew)];
+            }
         }else{
             return ['success'=>0, 'code'=>'Code not valid'];
         }
