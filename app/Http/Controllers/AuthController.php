@@ -42,7 +42,15 @@ class AuthController extends Controller
     public function loginWithSms(LoginWithCodeRequest $request, AuthService $service){
 //        dd($request->validationData());
         $data = $request->validated();
-        return $service->checkCodeWithPhone($data);
+        $result = $service->checkCodeWithPhone($data);
+        if($result){
+            $data['username'] = $data['phone'];
+            $data['password'] = $data['code'];
+            return  $service->StoreNewUser($data);
+        }else{
+            return ['success'=>0, 'code'=>'Code not valid'];
+        }
+
     }
     public function sendSms(PhoneSmsRequest $request, SendSms $action, AuthService $service){
         $phone = $request->validated();

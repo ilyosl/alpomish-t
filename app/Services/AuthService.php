@@ -15,7 +15,10 @@ class AuthService
         /** @var \App\Models\User $user **/
         $user = User::create([
             'username'=>$data['username'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
+            'phone' => $data['phone'] ?? '',
+            'phone_verified' => (bool)$data['code'],
+            'phone_verified_at' => $data['code'] ? date('Y-m-d H:i:s', time()) : ''
         ]);
         $token =  $this->GetTokenUser($user);
         return [
@@ -34,11 +37,11 @@ class AuthService
         return $smsCreate;
     }
     public function checkCodeWithPhone($data){
-        try {
-         return  CodeSms::where(['phone'=>$data['phone'],'code'=>$data['code']])->first;
-        }catch (\Exception $e){
-            abort(404,    'not found');
-        }
+
+
+         $info =  CodeSms::where(['phone'=>$data['phone'],'code'=>$data['code']])->orderBy('expires_at', 'DESC')->first();
+         return $info;
+
     }
     public function isAuth($credentials, $remember) {
 
