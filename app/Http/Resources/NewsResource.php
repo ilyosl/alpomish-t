@@ -21,6 +21,7 @@ class NewsResource extends JsonResource
             'desc'=>$this->desc,
             'status'=>$this->status,
             'image'=>$this->image,
+            'created_at'=>date('d.m.Y H:i:s', strtotime($this->created_at))
         ];
     }
 }
