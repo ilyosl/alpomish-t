@@ -37,11 +37,8 @@ class AuthService
         return $smsCreate;
     }
     public function checkCodeWithPhone($data){
-
-
          $info =  CodeSms::where(['phone'=>$data['phone'],'code'=>$data['code']])->orderBy('expires_at', 'DESC')->first();
          return $info;
-
     }
     public function isAuth($credentials, $remember) {
 
