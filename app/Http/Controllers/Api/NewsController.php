@@ -53,7 +53,8 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = new NewsResource(NewsModel::where(['id'=>$id])->first());
+        return response($news);
     }
 
     /**
