@@ -36,4 +36,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/send-sms', 'sendSms');
     Route::post('/auth-phone', 'loginWithSms');
 });
+Route::resource('/news', \App\Http\Controllers\Api\NewsController::class);
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);

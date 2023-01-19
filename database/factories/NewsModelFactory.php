@@ -17,7 +17,11 @@ class NewsModelFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title'=>ucfirst($this->faker->words(4, true)),
+            'short_text'=>$this->faker->text,
+            'desc'=>$this->faker->text,
+            'status'=>1,
+            'image' => $this->faker->imageUrl(342, 210, null, false)
         ];
     }
 }
