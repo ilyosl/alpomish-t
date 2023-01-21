@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddEventRequest;
 use App\Http\Resources\EventResource;
+use App\Models\Events;
 use App\Services\EventService;
+use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
@@ -29,8 +31,8 @@ class EventsController extends Controller
         return $service->addEvent($data);
     }
 
-    public function show(){
-
+    public function show(Events $event){
+        return response(new EventResource($event));
     }
 
     public function update(){
