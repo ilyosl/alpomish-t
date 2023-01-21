@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
 //         ]);
 //        KatokQrcodeModel::factory(10)->create();
 //        NewsModel::factory(10)->create();
-        //Events::factory()->create();
-        EventTime::factory(5)->create();
+//        Events::factory()->create();
+        EventTime::factory(2)->create();
         /*PostDeviceLogModel::factory()->create([
             'device_ip'=>"192.168.0.31",
             'comingDate' => '12.12.2022',

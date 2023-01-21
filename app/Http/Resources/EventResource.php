@@ -19,6 +19,9 @@ class EventResource extends JsonResource
             'title'=>$this->title,
             'slug'=>$this->slug,
             'desc'=>$this->desc,
+            'image'=>$this->image,
+            'status'=>$this->status,
+            'age_limit'=>$this->age_limit,
             'eventDate'=>EventTimeResource::collection($this->eventDate)
         ];
     }
