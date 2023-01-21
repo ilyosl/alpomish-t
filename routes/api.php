@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::resource('/event', \App\Http\Controllers\EventsController::class);
+
     Route::controller(\App\Http\Controllers\Api\KassaController::class)->group(function (){
         Route::post('/kassa/get-data', 'getData')->middleware('cors');
         Route::post('/kassa/check-qrcode', 'checkQrcode')->middleware('cors');
@@ -36,5 +36,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/send-sms', 'sendSms');
     Route::post('/auth-phone', 'loginWithSms');
 });
+Route::resource('/event', \App\Http\Controllers\Api\EventsController::class);
 Route::resource('/news', \App\Http\Controllers\Api\NewsController::class);
+Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class);
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);

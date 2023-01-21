@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\DeviceListModel;
 use App\Models\Events;
+use App\Models\EventTime;
 use App\Models\KatokQrcodeModel;
 use App\Models\NewsModel;
 use App\Models\PostDeviceLogModel;
@@ -28,7 +29,9 @@ class DatabaseSeeder extends Seeder
 //             'type'=> 1
 //         ]);
 //        KatokQrcodeModel::factory(10)->create();
-        NewsModel::factory(10)->create();
+//        NewsModel::factory(10)->create();
+        //Events::factory()->create();
+        EventTime::factory(5)->create();
         /*PostDeviceLogModel::factory()->create([
             'device_ip'=>"192.168.0.31",
             'comingDate' => '12.12.2022',

@@ -20,6 +20,9 @@ class EventService
         }
         return new EventResource($event);
     }
+    public function listEvents(){
+        return EventResource::collection(Events::get());
+    }
     private function createEventDate($eventDates){
         $validator = Validator::make($eventDates, [
             'eventDate' => 'required',

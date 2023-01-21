@@ -29,5 +29,8 @@ class Events extends Model
     public function eventDate(){
         return $this->hasMany(EventTime::class, 'event_id');
     }
+    public function eventTimes(){
+        return $this->hasMany(EventTime::class, 'event_id');
+    }
 
 }
