@@ -10,8 +10,8 @@ class EventPlaceService
 
         $place = EventPlaceModel::where([
             'block_name'=>$data['block_name'],
-            'eventTime'=>$data['event_id'],
-            'eventDate'=>$data['event_time'],
+            'event_id'=>$data['event_id'],
+            'event_time'=>$data['event_time'],
             'event_date'=>$data['event_date']
         ])->get();
 

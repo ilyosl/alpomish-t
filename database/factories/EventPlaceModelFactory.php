@@ -22,7 +22,9 @@ class EventPlaceModelFactory extends Factory
             "block_name" => "A1",
             "event_id" => 1,
             "event_date"=> "2023-01-30",
-            "event_"
+            "event_time"=> "11:00",
+            "price"=>50000,
+            "status"=>1
         ];
     }
 }

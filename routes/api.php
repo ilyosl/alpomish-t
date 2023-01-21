@@ -38,5 +38,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::resource('/event', \App\Http\Controllers\Api\EventsController::class);
 Route::resource('/news', \App\Http\Controllers\Api\NewsController::class);
-Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class);
+Route::controller(\App\Http\Controllers\Api\EventPlaceController::class)->group(function (){
+   Route::post('/event-place', 'index');
+});
+//Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);

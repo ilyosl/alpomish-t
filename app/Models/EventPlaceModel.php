@@ -12,7 +12,7 @@ class EventPlaceModel extends Model
 
     protected $fillable = [
         'place','row','event_id',
-        'price','block_name','eventTime','eventDate',
+        'price','block_name','event_time','event_date',
         'status'
     ];
 }

@@ -13,7 +13,7 @@ class EventPlaceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class EventPlaceRequest extends FormRequest
     public function rules()
     {
         return [
-            "event_id" => "required|exits,events",
+            "event_id" => "required|exists:event_place",
             "block_name"=>"required|string",
             "event_date"=>"required",
             "event_time"=>"required"
