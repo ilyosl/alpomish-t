@@ -41,5 +41,9 @@ Route::resource('/news', \App\Http\Controllers\Api\NewsController::class);
 Route::controller(\App\Http\Controllers\Api\EventPlaceController::class)->group(function (){
    Route::post('/event-place', 'index');
 });
+Route::controller(\App\Http\Controllers\Api\CoachServiceController::class)->group(function (){
+    Route::post('/coach-service', 'store');
+    Route::get('/coach-service', 'getStatic');
+});
 //Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);
