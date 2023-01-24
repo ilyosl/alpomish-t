@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EventPlaceModel extends Model
 {
@@ -15,4 +16,10 @@ class EventPlaceModel extends Model
         'price','block_name','event_time','event_date',
         'status'
     ];
+
+    public static function getPriceRange($price = 0){
+        $query = 'select  price, ROW_NUMBER () OVER (ORDER BY price) as range from "event_place" group by "event_place".price;';
+        $info = DB::select($query);
+        return $info;
+    }
 }

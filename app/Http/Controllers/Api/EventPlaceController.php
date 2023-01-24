@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventPlaceRequest;
+use App\Http\Resources\EventPlaceCollection;
 use App\Http\Resources\EventPlaceResource;
 use App\Models\EventPlaceModel;
 use App\Services\EventPlaceService;
@@ -23,7 +24,9 @@ class EventPlaceController extends Controller
     public function index(EventPlaceRequest $request, EventPlaceService $service)
     {
         $place = $request->validated();
-        return response(EventPlaceResource::collection($service->getPlace($place)));
+        return response(
+               new EventPlaceCollection($service->getPlace($place), EventPlaceModel::getPriceRange())
+        );
     }
 
     /**
