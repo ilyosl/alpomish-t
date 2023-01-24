@@ -13,7 +13,7 @@ class EventPlaceService
             'event_id'=>$data['event_id'],
             'event_time'=>$data['event_time'],
             'event_date'=>$data['event_date']
-        ])->get();
+        ])->orderby('row', 'asc')->orderby('place','asc')->get();
 
         return $place;
     }

@@ -19,9 +19,9 @@ class KassaController extends Controller
 //        return  $request->post('data');
         foreach ($res['data'] as $qr){
             $time = 0;
-            if($qr['time'] == 30000){
+            if($qr['time'] == 35000 || $qr['time'] == 30000){
                 $time = 30;
-            }elseif($qr['time'] == 60000){
+            }elseif($qr['time'] == 70000 || $qr['time'] == 60000){
                 $time = 60;
             }
             $add = KatokQrcodeModel::create([
@@ -87,14 +87,15 @@ class KassaController extends Controller
         $price = $request->post('price');
         $katok = $service->getByQrcode($qrcode);
         if($katok->status == 1 || $katok->status == 2){
+            $finD = strtotime($katok->finishDate)+($time*60);
             $addextend = KatokQrcodeModel::create([
                 'qrcode' => $qrcode,
                 'price' => $price,
                 'time'=> $time,
-                'sellDate'=>date('Y-m-d H:i:s', strtotime("now")),
-                'startDate'=>date('Y-m-d H:i:s', strtotime("now")),
-                'finishDate'=>date('Y-m-d H:i:s', strtotime("+".$time." minutes")),
-                'exitDate'=>date('Y-m-d H:i:s', strtotime("+".$time." minutes")),
+                'sell_date'=>date('Y-m-d H:i:s', time()),
+                'startDate'=>$katok->finishDate,
+                'finishDate'=>date('Y-m-d H:i:s', $finD),
+                'exitDate'=>date('Y-m-d H:i:s', $finD),
                 'status' => 1,
                 'type'=> $type,
                 'parent_id' => $katok->id
