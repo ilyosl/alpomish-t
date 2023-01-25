@@ -52,3 +52,6 @@ Route::controller(\App\Http\Controllers\RinkInfoController::class)->group(functi
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+

@@ -28,6 +28,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/kassa/feed', 'getFeedKatok')->middleware(['cors','throttle:none']);
         Route::get('/kassa/stat ', 'staticsInfo')->middleware(['cors']);
     });
+
+    //Chat
+    Route::controller(\App\Http\Controllers\ChatController::class)->prefix('chat')->group(function (){
+        Route::get('/', 'index');
+        Route::get('/messages', 'messages');
+        Route::post('/send', 'send');
+    });
 });
 
 Route::controller(AuthController::class)->group(function () {
