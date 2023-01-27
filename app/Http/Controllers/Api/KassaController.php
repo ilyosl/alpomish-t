@@ -24,17 +24,20 @@ class KassaController extends Controller
             }elseif($qr['time'] == 70000 || $qr['time'] == 60000){
                 $time = 60;
             }
-            $add = KatokQrcodeModel::create([
-                'qrcode' => $qr['qrcode'],
-                'price' => $qr['time'],
-                'time'=> $time,
-                'sell_date'=>date('Y-m-d H:i:s', strtotime("now")),
-                'startDate'=>date('Y-m-d H:i:s', strtotime("now")),
-                'finishDate'=>date('Y-m-d H:i:s', strtotime("+".$time." minutes")),
-                'exitDate'=>date('Y-m-d H:i:s', strtotime("+".$time." minutes")),
-                'status' => 0,
-                'type'=> $res['type']
-            ]);
+            $checkQrcode = KatokQrcodeModel::where(['status'=>0,'qrcode'=>$qr['qrcode']])->first();
+            if(empty($checkQrcode)) {
+                $add = KatokQrcodeModel::create([
+                    'qrcode' => $qr['qrcode'],
+                    'price' => $qr['time'],
+                    'time' => $time,
+                    'sell_date' => date('Y-m-d H:i:s', strtotime("now")),
+                    'startDate' => date('Y-m-d H:i:s', strtotime("now")),
+                    'finishDate' => date('Y-m-d H:i:s', strtotime("+" . $time . " minutes")),
+                    'exitDate' => date('Y-m-d H:i:s', strtotime("+" . $time . " minutes")),
+                    'status' => 0,
+                    'type' => $res['type']
+                ]);
+            }
         }
         return response(['success'=>1]);
     }
