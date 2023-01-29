@@ -52,5 +52,10 @@ Route::controller(\App\Http\Controllers\Api\CoachServiceController::class)->grou
     Route::post('/coach-service', 'store');
     Route::get('/coach-service', 'getStatic');
 });
+Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('basket')->group(function (){
+    Route::post('/view', 'show');
+    Route::post('/add', 'store');
+});
+
 //Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);
 Route::post('/open-door', [\App\Http\Controllers\Api\KassaController::class,'opendDoor']);
