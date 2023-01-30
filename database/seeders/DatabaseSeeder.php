@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\BlocksModel;
 use App\Models\DeviceListModel;
 use App\Models\EventPlaceModel;
 use App\Models\Events;
@@ -22,6 +23,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        BlocksModel::factory()->create(
+            []
+        );
 //         \App\Models\User::factory(5)->create();
 //           Events::factory()->create();
 //         \App\Models\User::factory()->create(['username' => '998903301345']);
@@ -33,7 +37,7 @@ class DatabaseSeeder extends Seeder
 //        NewsModel::factory(10)->create();
 //        Events::factory()->create();
 //        EventTime::factory(2)->create();
-        EventPlaceModel::factory(5)->create();
+//        EventPlaceModel::factory(5)->create();
         /*PostDeviceLogModel::factory()->create([
             'device_ip'=>"192.168.0.31",
             'comingDate' => '12.12.2022',
