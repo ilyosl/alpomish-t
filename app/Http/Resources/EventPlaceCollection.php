@@ -36,6 +36,7 @@ class EventPlaceCollection extends ResourceCollection
         return [
             "count_place"=>$this->collection->map(function($n){
                 return [
+                    "id"=>$n->id,
                     "number"=>$n->place,
                     "row"=>$n->row,
                     "block_name"=>$n->block_name,

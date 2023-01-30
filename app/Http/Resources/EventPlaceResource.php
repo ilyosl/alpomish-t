@@ -35,6 +35,7 @@ class EventPlaceResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "id"=>$this->id,
             "number"=>$this->place,
             "row"=>$this->row,
             "block_name"=>$this->block_name,

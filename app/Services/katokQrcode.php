@@ -41,7 +41,7 @@ class katokQrcode
             return false;
     }
     public function getByQrcode($qrcode){
-        $katok = KatokQrcodeModel::where(['qrcode'=>$qrcode, 'status'=>1])->orderBy('id','DESC')->first();
+        $katok = KatokQrcodeModel::where(['qrcode'=>$qrcode])->orderBy('id','DESC')->first();
 
         return $katok;
     }
