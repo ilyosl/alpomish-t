@@ -55,6 +55,7 @@ Route::controller(\App\Http\Controllers\Api\CoachServiceController::class)->grou
 Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('basket')->group(function (){
     Route::post('/view', 'show');
     Route::post('/add', 'store');
+    Route::delete('/delete-ticket', 'destroy');
 });
 
 //Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);

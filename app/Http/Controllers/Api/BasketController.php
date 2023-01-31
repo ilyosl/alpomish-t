@@ -8,6 +8,9 @@ use App\Models\BasketModel;
 
 class BasketController extends Controller
 {
+    public function index(){
+
+    }
     public function show(BasketRequest $request){
 
         $ticketId = BasketModel::where('ticket_id', $request->validated())->first();
@@ -22,5 +25,15 @@ class BasketController extends Controller
         $addTicket = BasketModel::create($ticketId);
 
         return $addTicket;
+    }
+    public function destroy(BasketRequest $request){
+        $ticketId = $request->validated();
+
+        try {
+            BasketModel::where('ticket_id', $ticketId['ticket_id'])->delete();
+            return ['success'=>1];
+        }catch (\Exception $e){
+            abort(402, $e);
+        }
     }
 }
