@@ -32,7 +32,9 @@ Route::domain('admin.'.env('APP_URL'))->middleware('auth')->group(function(){
     });
 });
 //\App\Http\Controllers\PostDeviceLogController::class
-Route::get('/', \App\Http\Livewire\HomeComponent::class)->name('home.index');
+Route::get('/', function (){
+    return redirect('/api');
+});
 Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(function (){
     Route::post('/listening', 'index');
     Route::get('/dump', 'listData');
