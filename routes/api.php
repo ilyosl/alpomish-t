@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function (){
     return ['success'=>1];
 });
+Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->group(function (){
+    Route::post('/', 'store');
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();

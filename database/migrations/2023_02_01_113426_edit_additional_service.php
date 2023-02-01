@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('additional_service', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->string('qrcode')->nullable();
-            $table->integer('price');
-            $table->date('sell_date');
-            $table->timestamps();
+        Schema::table('additional_service', function (Blueprint $table) {
+            $table->integer('count')->default('0');
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('additional_service');
+        Schema::dropColumns('additional_service','count');
     }
 };
