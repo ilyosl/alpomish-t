@@ -42,16 +42,21 @@ class AdditionalServiceController extends Controller
     {
         $data = $request->post();
         $adding = [];
-        foreach ($data as $service){
-            $adding[] = AdditionalServiceModel::create([
-                'type'=>$service['type'],
-                'price'=>$service['price'],
-                'payment'=>$service['payment'],
-                'sell_date'=>date('Y-m-d H:i:s', time()),
-                'count'=>$service['count']
-            ]);
+        if($data){
+            foreach ($data as $service){
+                $adding[] = AdditionalServiceModel::create([
+                    'type'=>$service['type'],
+                    'price'=>$service['price'],
+                    'payment'=>$service['payment'],
+                    'sell_date'=>date('Y-m-d H:i:s', time()),
+                    'count'=>$service['count']
+                ]);
+            }
+            return ['success'=>1, 'data'=>$adding];
+        }else{
+            return  ['success'=>0];
         }
-        return $adding;
+
     }
 
     /**
