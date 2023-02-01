@@ -120,9 +120,15 @@ class KassaController extends Controller
     }
     public function staticsInfo(katokQrcode $service) {
         $res = $service->getStaticByDay(KatokTypeEnum::Cash);
+        $uyinchoq = $service->getStaticServiceByDay(2);
+        $instruktor = $service->getStaticServiceByDay(1);
 
         return [
-            'data'=>$res
+            'data'=>[
+                    'katok'=>$res,
+                    'uyinchoq'=>$uyinchoq,
+                    'instruktor'=>$instruktor
+                ]
         ];
     }
 }

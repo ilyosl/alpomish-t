@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdditionalServiceModel;
+use App\Services\AdditionalService;
+use App\Services\katokQrcode;
 use Illuminate\Http\Request;
 
 class AdditionalServiceController extends Controller
@@ -13,9 +15,11 @@ class AdditionalServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(katokQrcode $service):array
     {
-        //
+        $res = $service->getStaticServiceByDay(1);
+
+        return $res;
     }
 
     /**
@@ -42,6 +46,7 @@ class AdditionalServiceController extends Controller
             $adding[] = AdditionalServiceModel::create([
                 'type'=>$service['type'],
                 'price'=>$service['price'],
+                'payment'=>$service['payment'],
                 'sell_date'=>date('Y-m-d H:i:s', time()),
                 'count'=>$service['count']
             ]);

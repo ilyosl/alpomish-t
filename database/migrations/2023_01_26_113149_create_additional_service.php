@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('additional_service', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('qrcode')->nullable();
+            $table->string('payment');
             $table->integer('price');
             $table->date('sell_date');
             $table->timestamps();

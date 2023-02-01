@@ -19,6 +19,7 @@ Route::get('/', function (){
 });
 Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->group(function (){
     Route::post('/', 'store');
+    Route::get('/', 'index');
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
