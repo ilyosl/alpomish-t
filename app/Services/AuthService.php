@@ -26,6 +26,21 @@ class AuthService
             'token' => $token
         ];
     }
+    public function SignupWithLogin($data){
+        /** @var \App\Models\User $user **/
+        $user = User::create([
+            'username'=>$data['username'],
+            'password' => bcrypt($data['password']),
+            'phone' => $data['phone'] ?? '',
+            'phone_verified' => true,
+            'phone_verified_at' => date('Y-m-d H:i:s', time())
+        ]);
+        $token =  $this->GetTokenUser($user);
+        return [
+            'user' => $user,
+            'token' => $token
+        ];
+    }
     public function storeSmsCode($data){
         $smsCreate = CodeSms::create([
             'ip'=>request()->ip(),

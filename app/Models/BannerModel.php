@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BasketModel extends Model
+class BannerModel extends Model
 {
     use HasFactory;
-    protected $table = 'basket_tickets';
+    protected $table = 'banner';
 
-
-    protected $fillable = ['ticket_id','user_id'];
+    protected $fillable = ['image','name','event_id','status'];
 }

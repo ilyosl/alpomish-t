@@ -9,7 +9,9 @@ use App\Models\BasketModel;
 class BasketController extends Controller
 {
     public function index(){
+        $tickets = BasketModel::where('user_id', auth()->user()->id)->get();
 
+        return $tickets;
     }
     public function show(BasketRequest $request){
 
@@ -22,8 +24,7 @@ class BasketController extends Controller
     }
     public function store(BasketRequest $request){
         $ticketId = $request->validated();
-        $addTicket = BasketModel::create($ticketId);
-
+        $addTicket = BasketModel::create(['ticket_id'=>$ticketId['ticket_id'], 'user_id'=>auth()->user()->id]);
         return $addTicket;
     }
     public function destroy(BasketRequest $request){

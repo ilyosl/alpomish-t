@@ -58,7 +58,8 @@ Route::controller(\App\Http\Controllers\Api\CoachServiceController::class)->grou
     Route::post('/coach-service', 'store');
     Route::get('/coach-service', 'getStatic');
 });
-Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('basket')->group(function (){
+Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('basket')->middleware('auth:sanctum')->group(function (){
+    Route::get('/', 'index');
     Route::post('/view', 'show');
     Route::post('/add', 'store');
     Route::delete('/delete-ticket', 'destroy');
