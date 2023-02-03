@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsRequest extends FormRequest
+class SectionPageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,10 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'short_text'=>'required',
-            'desc'=>'required',
-            'status'=>'required',
-            'image'=>'required'
+            "name"=>"required",
+            "content"=>"string",
+            "img_url"=>"mimes:png,jpg,jpeg",
+            "images"=> "array"
         ];
     }
 }

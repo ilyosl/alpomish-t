@@ -17,8 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function (){
     return ['success'=>1];
 });
+Route::controller(\App\Http\Controllers\Api\KatokServiceController::class)->prefix('/katok-service')->group(function (){
+    Route::get('/', 'index');
+    Route::post('/', 'store')->middleware('auth:sanctum');
+});
+Route::controller(\App\Http\Controllers\Api\UserProfileController::class)->prefix('/user-profile')->middleware('auth:sanctum')->group(function (){
+    Route::post('/edit', 'edit');
+    Route::get('/', 'index');
+
+});
 Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->group(function (){
     Route::post('/', 'store');
+    Route::get('/', 'index');
+});
+Route::controller(\App\Http\Controllers\Api\SectionPageController::class)->prefix('/section-page')->group(function (){
+    Route::post('/add', 'store')->middleware('auth:sanctum');
     Route::get('/', 'index');
 });
 Route::middleware('auth:sanctum')->group(function () {

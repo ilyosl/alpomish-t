@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\CodeSms;
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
@@ -20,10 +21,15 @@ class AuthService
             'phone_verified' => (bool)$data['code'],
             'phone_verified_at' => $data['code'] ? date('Y-m-d H:i:s', time()) : ''
         ]);
+
+        $userProfile = UserProfile::create([
+            'user_id'=>$user->id,
+        ]);
         $token =  $this->GetTokenUser($user);
         return [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
+            'userProfile'=>$userProfile
         ];
     }
     public function SignupWithLogin($data){

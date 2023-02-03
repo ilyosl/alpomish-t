@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NewsRequest;
-use App\Http\Resources\NewsResource;
-use App\Models\NewsModel;
+use App\Http\Requests\SectionPageRequest;
+use App\Http\Resources\SectionPageResource;
+use App\Models\SectionPageModel;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class SectionPageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['create', 'store','destroy','edit','update']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +17,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = NewsModel::all();
-        return response(NewsResource::collection($news));
+        return SectionPageResource::collection(SectionPageModel::query()->get());
     }
 
     /**
@@ -41,21 +36,22 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NewsRequest $request)
+    public function store(SectionPageRequest $request)
     {
+
         $data = $request->validated();
 
-        $file = $request->file('image');
+        $file = $request->file('img_url');
         $destinationPath = env('APP_URL').'/storage/uploads/sections/';
         $fileName = time().'_'.$file->getClientOriginalName();
         $filePath = $destinationPath.$fileName;
         $file->storeAs('uploads/sections/', $fileName, 'public');
 
-        $data['image'] = $filePath;
+        $data['img_url'] = $filePath;
 
-        $newsAdd = NewsModel::create($data);
+        $sectionAdd = SectionPageModel::create($data);
 
-        return $newsAdd;
+        return  $sectionAdd;
     }
 
     /**
@@ -66,8 +62,7 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = new NewsResource(NewsModel::where(['id'=>$id])->first());
-        return response($news);
+        //
     }
 
     /**
