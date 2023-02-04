@@ -9,7 +9,7 @@ use App\Models\BasketModel;
 class BasketController extends Controller
 {
     public function index(){
-        $tickets = BasketModel::where('user_id', auth()->user()->id)->get();
+        $tickets = BasketModel::with('tickets')->where('user_id', auth()->user()->id)->get();
 
         return $tickets;
     }

@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function (){
     return ['success'=>1];
 });
+
+Route::controller(\App\Http\Controllers\Api\ApplicationForKatokServiceController::class)->prefix('/app-katok')->group(function (){
+    Route::post('/add', 'store');
+});
+Route::controller(\App\Http\Controllers\Api\OrdersController::class)->prefix('/order')->middleware('auth:sanctum')->group(function (){
+    Route::post('/add', 'store');
+});
 Route::controller(\App\Http\Controllers\Api\KatokServiceController::class)->prefix('/katok-service')->group(function (){
     Route::get('/', 'index');
     Route::post('/', 'store')->middleware('auth:sanctum');

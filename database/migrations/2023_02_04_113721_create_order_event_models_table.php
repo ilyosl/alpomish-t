@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_event', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->smallInteger('status')->default(0);
-            $table->timestamp('confirm_buy')->nullable();
+            $table->foreignIdFor(\App\Models\OrdersModel::class, 'order_id');
+            $table->foreignIdFor(\App\Models\EventPlaceModel::class, 'event_place_id');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_event');
     }
 };

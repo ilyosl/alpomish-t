@@ -12,4 +12,8 @@ class BasketModel extends Model
 
 
     protected $fillable = ['ticket_id','user_id'];
+
+    public function tickets(){
+        return $this->belongsTo(EventPlaceModel::class, 'ticket_id');
+    }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrdersRequest;
+use App\Models\OrderEventModel;
+use App\Models\OrdersModel;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -33,9 +36,25 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrdersRequest $request):array
     {
-        //
+        $data = $request->validated();
+        $tickets = $data['tickets'];
+        unset($data['tickets']);
+        $data['user_id'] = auth()->user()->id;
+        try {
+            $order = OrdersModel::create($data);
+            foreach ($tickets as $key => $value){
+                OrderEventModel::create([
+                    'order_id'=>$order->id,
+                    'event_place_id'=>$value
+                ]);
+            }
+            return ['success'=>1, 'order'=>$order];
+        }catch (\Exception $e){
+            abort(400, $e);
+        }
+
     }
 
     /**

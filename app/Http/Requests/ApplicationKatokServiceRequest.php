@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrdersRequest extends FormRequest
+class ApplicationKatokServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,11 @@ class OrdersRequest extends FormRequest
     public function rules()
     {
         return [
+            'katok_service_id' =>'required',
             'first_name'=>'required|string',
             'last_name'=>'required|string',
-            'email'=>'required|email',
             'phone'=>'required|string',
-            'payment_type'=>'required|string',
-            'tickets'=>'array'
+            'comment'=>'required|string'
         ];
     }
 }
