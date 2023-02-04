@@ -41,7 +41,6 @@ class KatokServiceController extends Controller
         $data = $request->validated();
 
         $file = $request->file('img_url');
-//        dd($file->getClientOriginalExtension());
         $destinationPath = env('APP_URL').'/storage/uploads/katokService/';
         $fileName = time().'_kataok_service.'.$file->getClientOriginalExtension();
         $filePath = $destinationPath.$fileName;

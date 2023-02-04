@@ -43,7 +43,7 @@ class SectionPageController extends Controller
 
         $file = $request->file('img_url');
         $destinationPath = env('APP_URL').'/storage/uploads/sections/';
-        $fileName = time().'_'.$file->getClientOriginalName();
+        $fileName = time().'_section_page.'.$file->getClientOriginalExtension();
         $filePath = $destinationPath.$fileName;
         $file->storeAs('uploads/sections/', $fileName, 'public');
 
