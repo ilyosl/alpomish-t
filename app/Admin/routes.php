@@ -1,5 +1,7 @@
 <?php
 
+use App\Admin\Controllers\ApplicationForKatokServiceController;
+use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
 use Illuminate\Routing\Router;
 
@@ -13,6 +15,8 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
-    $router->resource('news-models', NewsController::class);
+    $router->resource('news', NewsController::class);
+    $router->resource('katok-service', KatokServiceController::class);
+    $router->resource('app-service', ApplicationForKatokServiceController::class);
 
 });

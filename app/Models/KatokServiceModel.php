@@ -11,4 +11,9 @@ class KatokServiceModel extends Model
     protected $table = 'katok_service';
 
     protected $fillable = ['name','work_week','work_time','coach_fio','img_url'];
+
+    public function apps()
+    {
+        return $this->hasMany(ApplicationForKatokServiceModel::class,'katok_service_id');
+    }
 }

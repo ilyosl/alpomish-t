@@ -82,7 +82,7 @@ Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('ba
     Route::get('/', 'index');
     Route::post('/view', 'show');
     Route::post('/add', 'store');
-    Route::delete('/delete-ticket', 'destroy');
+    Route::post('/delete-ticket', 'destroy');
 });
 
 //Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);

@@ -31,6 +31,7 @@ class NewsController extends AdminController
         $grid->column('short_text', __('Short text'));
         $grid->column('desc', __('Desc'));
         $grid->column('status', __('Status'));
+        $grid->column('image', __('Image'))->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -52,6 +53,7 @@ class NewsController extends AdminController
         $show->field('short_text', __('Short text'));
         $show->field('desc', __('Desc'));
         $show->field('status', __('Status'));
+        $show->field('image', __('Status'))->image();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -69,7 +71,8 @@ class NewsController extends AdminController
 
         $form->text('title', __('Title'));
         $form->text('short_text', __('Short text'));
-        $form->textarea('desc', __('Desc'));
+        $form->ckeditor('desc', __('Desc'));
+        $form->file('image', __('image'));
         $form->number('status', __('Status'));
 
         return $form;

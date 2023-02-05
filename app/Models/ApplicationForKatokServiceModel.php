@@ -11,4 +11,8 @@ class ApplicationForKatokServiceModel extends Model
     protected $table = 'application_for_katok_services';
 
     protected $fillable = ['katok_service_id','first_name','last_name','phone','comment','status'];
+
+    public function katok(){
+        return $this->belongsTo(KatokServiceModel::class, 'katok_service_id');
+    }
 }

@@ -29,10 +29,13 @@ class BasketController extends Controller
     }
     public function destroy(BasketRequest $request){
         $ticketId = $request->validated();
-
         try {
-            BasketModel::where('ticket_id', $ticketId['ticket_id'])->delete();
-            return ['success'=>1];
+            $ticket = BasketModel::where('ticket_id', $ticketId['ticket_id'])->first();
+            if($ticket) {
+                return ['success' => 1];
+            }else{
+                return ['success'=> 0];
+            }
         }catch (\Exception $e){
             abort(402, $e);
         }
