@@ -32,6 +32,7 @@ class BasketController extends Controller
         try {
             $ticket = BasketModel::where('ticket_id', $ticketId['ticket_id'])->first();
             if($ticket) {
+                $ticket->delete();
                 return ['success' => 1];
             }else{
                 return ['success'=> 0];
