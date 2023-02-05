@@ -29,7 +29,9 @@ class NewsController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('title', __('Название'));
         $grid->column('short_text', __('Кароткие описание'));
-        $grid->column('desc', __('Контент'));
+        $grid->column('desc', __('Контент'))->display(function ($desc){
+            return $desc;
+        });
         $grid->column('status', __('Статус'));
         $grid->column('image', __('Рисунок'))->image();
         $grid->column('created_at', __('Created at'));
