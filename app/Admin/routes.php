@@ -1,6 +1,8 @@
 <?php
 
 use App\Admin\Controllers\ApplicationForKatokServiceController;
+use App\Admin\Controllers\EventController;
+use App\Admin\Controllers\EventTimeController;
 use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
 use Illuminate\Routing\Router;
@@ -18,5 +20,7 @@ Route::group([
     $router->resource('news', NewsController::class);
     $router->resource('katok-service', KatokServiceController::class);
     $router->resource('app-service', ApplicationForKatokServiceController::class);
+    $router->resource('events', EventController::class);
+    $router->resource('event-times', EventTimeController::class);
 
 });

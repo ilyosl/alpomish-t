@@ -71,7 +71,7 @@ class NewsController extends AdminController
 
         $form->text('title', __('Title'));
         $form->text('short_text', __('Short text'));
-        $form->ckeditor('desc', __('Desc'));
+        $form->summernote('desc', __('Desc'));
         $form->file('image', __('image'));
         $form->number('status', __('Status'));
 

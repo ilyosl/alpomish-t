@@ -9,6 +9,7 @@
         "cboden/ratchet": "^0.4.4",
         "encore/laravel-admin": "^1.8",
         "guzzlehttp/guzzle": "^7.5",
+        "laravel-admin-ext/summernote": "^1.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
