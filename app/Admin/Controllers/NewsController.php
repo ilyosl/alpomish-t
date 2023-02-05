@@ -15,7 +15,7 @@ class NewsController extends AdminController
      *
      * @var string
      */
-    protected $title = 'NewsModel';
+    protected $title = 'Новости';
 
     /**
      * Make a grid builder.
@@ -27,11 +27,11 @@ class NewsController extends AdminController
         $grid = new Grid(new NewsModel());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
-        $grid->column('short_text', __('Short text'));
-        $grid->column('desc', __('Desc'));
-        $grid->column('status', __('Status'));
-        $grid->column('image', __('Image'))->image();
+        $grid->column('title', __('Название'));
+        $grid->column('short_text', __('Кароткие описание'));
+        $grid->column('desc', __('Контент'));
+        $grid->column('status', __('Статус'));
+        $grid->column('image', __('Рисунок'))->image();
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -49,11 +49,11 @@ class NewsController extends AdminController
         $show = new Show(NewsModel::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
-        $show->field('short_text', __('Short text'));
-        $show->field('desc', __('Desc'));
-        $show->field('status', __('Status'));
-        $show->field('image', __('Status'))->image();
+        $show->field('title', __('Название'));
+        $show->field('short_text', __('Описание'));
+        $show->field('desc', __('Контент'));
+        $show->field('status', __('Статус'));
+        $show->field('image', __('Рисунок'))->image();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 

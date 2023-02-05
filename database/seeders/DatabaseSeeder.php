@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        BlocksModel::factory()->create(
-            []
-        );
+//        BlocksModel::factory()->create(
+//            []
+//        );
 //         \App\Models\User::factory(5)->create();
 //           Events::factory()->create();
 //         \App\Models\User::factory()->create(['username' => '998903301345']);
