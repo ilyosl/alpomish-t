@@ -15,11 +15,7 @@ class KassirController extends Controller
         $this->middleware('auth');
     }
     public function index(openDoor $action){
-        $action->actionDoor('open', '192.168.0.32');
-        echo date('d.m.Y H:i:s', strtotime("now"));
-        echo "<br>";
-        echo date('d.m.Y H:i:s', strtotime("+30 minutes"));
-        die;
+
         return view('kassir.index');
     }
     public function getInfoByQr(QrcodeRequest $request){

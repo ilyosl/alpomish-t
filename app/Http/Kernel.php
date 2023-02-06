@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Localization;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use KevinSoft\MultiLanguage\Middlewares\MultiLanguageMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -37,6 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            MultiLanguageMiddleware::class,
+            Localization::class
         ],
 
         'api' => [

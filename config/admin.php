@@ -57,7 +57,6 @@ return [
     |
     */
     'route' => [
-
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
 
         'namespace' => 'App\\Admin\\Controllers',
@@ -138,6 +137,7 @@ return [
         'excepts' => [
             'auth/login',
             'auth/logout',
+            'locale',
         ],
     ],
 
@@ -277,6 +277,7 @@ return [
     */
     'skin' => env('ADMIN_SKIN', 'skin-blue-light'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Application layout
@@ -394,7 +395,7 @@ return [
     | the extension files will be generated in this directory.
     */
     'extension_dir' => app_path('Admin/Extensions'),
-
+    'locale'=>'ru_RU',
     /*
     |--------------------------------------------------------------------------
     | Settings for extensions.
@@ -415,6 +416,23 @@ return [
                 'lang'   => 'ru-RU',
                 'height' => 500,
             ]
-        ]
+        ],
+        'multi-language' => [
+            'enable' => true,
+            // the key should be same as var locale in config/app.php
+            // the value is used to show
+            'languages' => [
+                'en' => 'English',
+                'ru' => 'Русский',
+            ],
+            // default locale
+            'default' => 'ru_RU',
+            // if or not show multi-language login page, optional, default is true
+            'show-login-page' => true,
+            // if or not show multi-language navbar, optional, default is true
+            'show-navbar' => true,
+            // the cookie name for the multi-language var, optional, default is 'locale'
+            'cookie-name' => 'locale'
+        ],
     ],
 ];
