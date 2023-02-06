@@ -10,4 +10,9 @@ class EventTime extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = ['eventDate','eventTime','event_id','status'];
+
+    public function event()
+    {
+        return $this->belongsTo(Events::class, 'event_id');
+    }
 }

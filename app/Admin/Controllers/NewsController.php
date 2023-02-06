@@ -79,4 +79,8 @@ class NewsController extends AdminController
 
         return $form;
     }
+    public function store()
+    {
+        dd($this->form());
+    }
 }
