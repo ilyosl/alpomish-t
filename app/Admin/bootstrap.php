@@ -21,3 +21,4 @@ use Encore\Admin\Form;
 
 Form::extend('ckeditor', \App\Admin\Extensions\Form\CKEditor::class);
 Form::forget(['map', 'editor']);
+\Encore\Admin\Admin::css("/css/newfont.css");
