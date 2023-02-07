@@ -17,7 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function (){
     return ['success'=>1];
 });
-
+Route::controller(\App\Http\Controllers\Api\PaymeController::class)->prefix('/payme')->group(function (){
+   Route::post('/', 'index');
+});
+Route::controller(\App\Http\Controllers\Api\ClickController::class)->prefix('/click')->group(function (){
+    Route::post('/prepare-click','prepare');
+    Route::post('/complete-click','complete');
+});
 Route::controller(\App\Http\Controllers\Api\ApplicationForKatokServiceController::class)->prefix('/app-katok')->group(function (){
     Route::post('/add', 'store');
 });

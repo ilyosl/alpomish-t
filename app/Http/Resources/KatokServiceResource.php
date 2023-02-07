@@ -15,6 +15,7 @@ class KatokServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'work_week'=>$this->work_week,
             'work_time'=>$this->work_time,

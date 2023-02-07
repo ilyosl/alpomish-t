@@ -7,6 +7,7 @@ use App\Http\Requests\OrdersRequest;
 use App\Models\OrderEventModel;
 use App\Models\OrdersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -42,7 +43,13 @@ class OrdersController extends Controller
         $tickets = $data['tickets'];
         unset($data['tickets']);
         $data['user_id'] = auth()->user()->id;
+
         try {
+            $cost = DB::table('event_place')->selectRaw('sum(price) as cost')
+                ->whereIn('id', $tickets)
+                ->first();
+            $data['summ'] = $cost->cost;
+            $data['count_tickets'] = count($tickets);
             $order = OrdersModel::create($data);
             foreach ($tickets as $key => $value){
                 OrderEventModel::create([
