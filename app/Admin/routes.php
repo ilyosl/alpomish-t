@@ -20,7 +20,11 @@ Route::group([
     $router->resource('news', NewsController::class);
     $router->resource('katok-service', KatokServiceController::class);
     $router->resource('app-service', ApplicationForKatokServiceController::class);
+    $router->controller(EventController::class)->prefix('/events')->group(function(){
+        \Illuminate\Support\Facades\Route::get('/event-place','eventPlace');
+    })->name('admin.events.event-place');
     $router->resource('events', EventController::class);
+
     $router->resource('event-times', EventTimeController::class);
 
 });
