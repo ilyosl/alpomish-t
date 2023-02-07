@@ -158,14 +158,14 @@ class PaymeController extends Controller
             ];
 
             // Mark order as completed
-            $myUpdate = "UPDATE bron_tickets SET status=2 WHERE uzcard_id = ".$billing->id.";";
-            $txt = "Myticket. Vi mojete raspechatat Vash elektronniy bilet v personalnom kabinete po ssilke www.myticket.uz/profile  spravki po telefonu 1408787";
-            Yii::$app->db->createCommand($myUpdate)->execute();
-            $phone = $billing->phone;
-            Yii::$app->sms->send($txt, $phone);
-            $textAdmin = "Abonet kupil bilet .".$billing->TicketsInfoAdmin();
-            // Yii::$app->sms->send($textAdmin, '998331108585');
-            Yii::$app->sms->send($textAdmin, '998998008787');
+//            $myUpdate = "UPDATE bron_tickets SET status=2 WHERE uzcard_id = ".$billing->id.";";
+//            $txt = "Myticket. Vi mojete raspechatat Vash elektronniy bilet v personalnom kabinete po ssilke www.myticket.uz/profile  spravki po telefonu 1408787";
+//            Yii::$app->db->createCommand($myUpdate)->execute();
+//            $phone = $billing->phone;
+//            Yii::$app->sms->send($txt, $phone);
+//            $textAdmin = "Abonet kupil bilet .".$billing->TicketsInfoAdmin();
+//            // Yii::$app->sms->send($textAdmin, '998331108585');
+//            Yii::$app->sms->send($textAdmin, '998998008787');
             $billing->status = 2;
             $billing->bought_date = time();
             $billing->save(false);
