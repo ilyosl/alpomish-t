@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Forms\EventPlaceForm;
 use App\Models\Events;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -95,6 +96,11 @@ class EventController extends AdminController
         $form->text('meta_desc', __('Meta desc'));
         $form->number('status', __('Status'));
 
+        return $form;
+    }
+    public function eventPlace($request){
+        $form = new EventPlaceForm(new Form());
+        $form->text('name');
         return $form;
     }
 }

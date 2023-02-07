@@ -28,7 +28,7 @@ class EventTimeController extends AdminController
         $grid = new Grid(new EventTime());
 
         $grid->column('id', __('Id'));
-        $grid->column('event_id', __('Event id'));
+        $grid->column('event.title', __('Event id'));
         $grid->column('eventDate', __('EventDate'));
         $grid->column('eventTime', __('EventTime'));
         $grid->column('status', __('Status'));
