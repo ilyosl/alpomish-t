@@ -83,7 +83,20 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $orderEvents = DB::table('order_event')->select('event_place_id')
+            ->where(['order_id'=> $id])->get();
+        $tickets = [];
+        foreach ($orderEvents as $orderEvent){
+            $tickets[]=$orderEvent->event_place_id;
+        }
+//        dd($tmpTicket);
+//        $tickets = implode(',',$tmpTicket);
+
+        $update =  DB::table('event_place')
+            ->whereIn('id', $tickets)
+            ->update(['status'=>2]);
+
+        return  $update;
     }
 
     /**

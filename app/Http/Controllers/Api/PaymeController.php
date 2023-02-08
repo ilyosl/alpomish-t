@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderEventModel;
 use App\Models\OrdersModel;
 use App\Models\PayTransModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaymeController extends Controller
 {
@@ -143,39 +145,40 @@ class PaymeController extends Controller
         $order = $this->GetByIdTrans($payload['params']['id']);
         $billing =  OrdersModel::where('id',$order->pay_acount)->first();
         // BillingPayments::findOne($order->pay_acount);
-        if ($billing->status == 1) { // handle new Perform request
-            // Save perform time
-            $billing->confirm_buy = $perform_time;
+        if ($billing->status == 1) {
 
+            // handle new Perform request
+            // Save perform time
+            $billing->perform_time = $perform_time;
 
             $response = [
                 "id" => $payload['id'],
                 "result" => [
                     "transaction" => (string)$order->id,
-                    "perform_time" => $billing->perform_time,
+                    "perform_time" => $perform_time,
                     "state" => 2
                 ]
             ];
+            $orderEvents = DB::table('order_event')->select('event_place_id')
+                ->where(['order_id'=> $billing->id]);
+            $tickets = [];
+            foreach ($orderEvents as $orderEvent){
+                $tickets[]=$orderEvent->event_place_id;
+            }
+            DB::table('event_place')
+                ->whereIn('id', $tickets)
+                ->update(['status'=>2]);
 
-            // Mark order as completed
-//            $myUpdate = "UPDATE bron_tickets SET status=2 WHERE uzcard_id = ".$billing->id.";";
-//            $txt = "Myticket. Vi mojete raspechatat Vash elektronniy bilet v personalnom kabinete po ssilke www.myticket.uz/profile  spravki po telefonu 1408787";
-//            Yii::$app->db->createCommand($myUpdate)->execute();
-//            $phone = $billing->phone;
-//            Yii::$app->sms->send($txt, $phone);
-//            $textAdmin = "Abonet kupil bilet .".$billing->TicketsInfoAdmin();
-//            // Yii::$app->sms->send($textAdmin, '998331108585');
-//            Yii::$app->sms->send($textAdmin, '998998008787');
             $billing->status = 2;
-            $billing->bought_date = time();
-            $billing->save(false);
+            $billing->confirm_buy = date('Y-m-d H:i:s',  time());
+            $billing->save();
 
         } elseif ($billing->status == 2) { // handle existing Perform request
             $response = [
                 "id" => $payload['id'],
                 "result" => [
                     "transaction" => (string)$order->id,
-                    "perform_time" => $billing->perform_time,
+                    "perform_time" => $perform_time,
                     "state" => 2
                 ]
             ];
@@ -183,6 +186,64 @@ class PaymeController extends Controller
             $response = $this->error_cancelled_transaction($payload);
         } else {
             $response = $this->error_unknown($payload);
+        }
+
+        return $response;
+    }
+    public function CheckTransaction($payload)
+    {
+        $transaction_id = $payload['params']['id'];
+        // $order = $this->get_order_by_transaction($payload);
+
+        // Get transaction id from the order
+        $saved_transaction_id = $this->GetByIdTrans($transaction_id);
+
+        $order =OrdersModel::where('id',$saved_transaction_id->pay_acount)->first();
+        // BillingPayments::findOne($saved_transaction_id->pay_acount);
+
+        $response = [
+            "id" => $payload['id'],
+            "result" => [
+                "create_time" => $order->create_time,//$this->get_create_time($order),
+                "perform_time" => 0,
+                "cancel_time" => 0,
+                "transaction" => (string)$saved_transaction_id->id,
+                "state" => null,
+                "reason" => null
+            ],
+            "error" => null
+        ];
+
+        if ($transaction_id == $saved_transaction_id->pay_id) {
+            switch ($order->status) {
+                case '1':
+                    $response['result']['state'] = 1;
+                    break;
+
+                case '2':
+                    $response['result']['state'] = 2;
+                    $response['result']['perform_time'] = $order->perform_time;
+                    break;
+
+                case '-2':
+                    $response['result']['state'] = -1;
+                    $response['result']['reason'] = 3;
+                    $response['result']['cancel_time'] = $order->cancel_time;//$this->get_cancel_time($order);
+                    break;
+
+                case '-3':
+                    $response['result']['state'] = -2;
+                    $response['result']['reason'] = 5;
+                    $response['result']['perform_time'] = $order->perform_time; // $this->get_perform_time($order);
+                    $response['result']['cancel_time'] = $order->cancel_time;//$this->get_cancel_time($order);
+                    break;
+
+                default:
+                    $response = $this->error_transaction($payload);
+                    break;
+            }
+        } else {
+            $response = $this->error_transaction($payload);
         }
 
         return $response;

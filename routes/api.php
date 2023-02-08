@@ -29,6 +29,7 @@ Route::controller(\App\Http\Controllers\Api\ApplicationForKatokServiceController
 });
 Route::controller(\App\Http\Controllers\Api\OrdersController::class)->prefix('/order')->middleware('auth:sanctum')->group(function (){
     Route::post('/add', 'store');
+    Route::get('/view/{id}', 'edit');
 });
 Route::controller(\App\Http\Controllers\Api\KatokServiceController::class)->prefix('/katok-service')->group(function (){
     Route::get('/', 'index');
