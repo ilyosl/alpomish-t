@@ -15,14 +15,16 @@ class PaymeController extends Controller
         $payload = json_decode(file_get_contents('php://input'), true);
         // Authorize client
         $headers = getallheaders();
+
         $encoded_credentials = base64_encode("Paycom:W@E?xe9fv3RH?nbv28P2%zpMAx39GPi@NQW6");
-        // $encoded_credentials = base64_encode("Paycom:GePoN@D417tA0pBqFbBtDkboEbv997BRHZfe");
+
         if (!$headers || // there is no headers
             !isset($headers['Authorization']) || // there is no Authorization
             !preg_match('/^\s*Basic\s+(\S+)\s*$/i', $headers['Authorization'], $matches) || // invalid Authorization value
             $matches[1] != $encoded_credentials // invalid credentials
         ) {
-            $this->respond($this->error_authorization($payload));
+
+            return $this->respond($this->error_authorization($payload));
         }
 
         // Execute appropriate method
@@ -31,7 +33,7 @@ class PaymeController extends Controller
             : $this->error_unknown_method($payload);
 
         // Respond with result
-        $this->respond($response);
+       return $this->respond($response);
     }
     public function respond($response)
     {
@@ -51,12 +53,43 @@ class PaymeController extends Controller
     {
         return round(microtime(true) * 1000);
     }
+    public function GetStatement($payload){
+        $from =  $payload['params']['from'];
+        $to =  $payload['params']['to'];
+
+        $transactions = DB::table('pay_trans')
+
+            ->leftJoin('orders', 'orders.id', '=', 'pay_trans.pay_account')
+            ->whereBetween('pay_trans.pay_time',[$from, $to])->get();
+
+        $resTransactions = [];
+        foreach ($transactions as $trans){
+            $resTransactions[] =[
+                "id"=>$trans->pay_id,
+                "time"=>$trans->pay_time,
+                "amount"=>$trans->summ,
+                "account"=>["ticket_id"=>(string)$trans->pay_account],
+                "create_time"=>$trans->create_time,
+                "perform_time"=>$trans->perform_time,
+                "cancel_time"=>$trans->cancel_time,
+                "transaction"=>(string)$trans->id,
+                "state"=>$trans->stat,
+                "reason"=>$trans->reason
+            ];
+        }
+
+        $response = [
+            "transactions" => $resTransactions
+        ];
+
+        return $response;
+    }
     public function CheckPerformTransaction($payload)
     {
+        $ticket_id = $payload['params']['account']['ticket_id'] ?? 0;
+        $order = OrdersModel::where('id', $ticket_id)->first();
 
-        $order = OrdersModel::where('id', $payload['params']['account']['ticket_id'])->first();
-
-        // return [$order];
+//         return [$order];
         if(empty($order))
             return $this->error_order_id($payload);
         $amount = $this->amount_to_coin($order->summ);
@@ -75,8 +108,8 @@ class PaymeController extends Controller
                                 "price" => $amount,
                                 "count" => $order->count_tickets,
                                 "code" => "11001004001000000",
-                                "vat_percent" => 0,
-                                'package_code'=>90605
+                                "vat_percent" => 12,
+                                'package_code'=>"90605"
                             ]
                         ]
                     ]
@@ -111,14 +144,14 @@ class PaymeController extends Controller
 
                 // Change order's status to Processing
                 $order->status = 1;
-                $order->save(false);
+                $order->save();
 
                 $response = [
                     "id" => $payload['id'],
                     "result" => [
                         "create_time" => $create_time,
                         "transaction" => (string)$newTrans->id,
-                        "receivers" => $receivers,
+//                        "receivers" => $receivers,
                         "state" => 1
                     ]
                 ];
@@ -128,7 +161,7 @@ class PaymeController extends Controller
                     "result" => [
                         "create_time" => $create_time,
                         "transaction" => (string)$saved_transaction_id->id,
-                        "receivers" => $receivers,
+//                        "receivers" => $receivers,
                         "state" => 1
                     ]
                 ];
@@ -143,8 +176,8 @@ class PaymeController extends Controller
     {
         $perform_time = $this->current_timestamp();
         $order = $this->GetByIdTrans($payload['params']['id']);
-        $billing =  OrdersModel::where('id',$order->pay_acount)->first();
-        // BillingPayments::findOne($order->pay_acount);
+        $billing =  OrdersModel::where('id',$order->pay_account)->first();
+
         if ($billing->status == 1) {
 
             // handle new Perform request
@@ -155,12 +188,12 @@ class PaymeController extends Controller
                 "id" => $payload['id'],
                 "result" => [
                     "transaction" => (string)$order->id,
-                    "perform_time" => $perform_time,
+                    "perform_time" => $billing->perform_time,
                     "state" => 2
                 ]
             ];
             $orderEvents = DB::table('order_event')->select('event_place_id')
-                ->where(['order_id'=> $billing->id]);
+                ->where(['order_id'=> $billing->id])->get();
             $tickets = [];
             foreach ($orderEvents as $orderEvent){
                 $tickets[]=$orderEvent->event_place_id;
@@ -178,7 +211,7 @@ class PaymeController extends Controller
                 "id" => $payload['id'],
                 "result" => [
                     "transaction" => (string)$order->id,
-                    "perform_time" => $perform_time,
+                    "perform_time" => $billing->perform_time,
                     "state" => 2
                 ]
             ];
@@ -198,8 +231,7 @@ class PaymeController extends Controller
         // Get transaction id from the order
         $saved_transaction_id = $this->GetByIdTrans($transaction_id);
 
-        $order =OrdersModel::where('id',$saved_transaction_id->pay_acount)->first();
-        // BillingPayments::findOne($saved_transaction_id->pay_acount);
+        $order =OrdersModel::where('id',$saved_transaction_id->pay_account)->first();
 
         $response = [
             "id" => $payload['id'],
@@ -255,7 +287,7 @@ class PaymeController extends Controller
         $transaction_id = $payload['params']['id'];
         $saved_transaction_id = $this->GetByIdTrans($transaction_id);
 
-        $order = OrdersModel::where('id', $saved_transaction_id->pay_acount)->first();
+        $order = OrdersModel::where('id', $saved_transaction_id->pay_account)->first();
 
         if ($transaction_id == $saved_transaction_id->pay_id) {
 
@@ -275,7 +307,7 @@ class PaymeController extends Controller
                     // add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                     $order->cancel_time = $cancel_time;
                     $order->status = -2;//('cancelled'); // Change status to Cancelled
-                    $order->save(false);
+                    $order->save();
                     $response['result']['state'] = -1;
                     break;
 
@@ -283,7 +315,7 @@ class PaymeController extends Controller
                     // add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                     $order->cancel_time = $cancel_time;
                     $order->status = -3;//('refunded'); // Change status to Refunded
-                    $order->save(false);
+                    $order->save();
                     $response['result']['state'] = -2;
                     break;
 
@@ -301,6 +333,7 @@ class PaymeController extends Controller
                     $response = $this->error_cancel($payload);
                     break;
             }
+//            DB::table('order_event')->where(['order_id'=>$order->id])->delete();
         } else {
             $response = $this->error_transaction($payload);
         }
@@ -310,20 +343,20 @@ class PaymeController extends Controller
     public function CreateTransactionData($addData)
     {
 
-        $cTrans = new PayTransModel();
+        $cTrans = new PayTransModel;
         $cTrans->pay_id = $addData['id'];
         $cTrans->pay_time = round(microtime(true) * 1000);
         $cTrans->pay_amount = $addData['amount'];
-        $cTrans->pay_acount = $addData['account']['myticket'];
+        $cTrans->pay_account = $addData['account']['ticket_id'];
         $cTrans->stat = 1;
         $cTrans->reason = null;
-        $cTrans->save(false);
+        $cTrans->save();
 
         return $cTrans;
     }
     public function GetTransaction($payId)
     {
-        $payInfo = PayTransModel::where('pay_acount',$payId)->first();
+        $payInfo = PayTransModel::where('pay_account',$payId)->first();
         return $payInfo;
     }
 

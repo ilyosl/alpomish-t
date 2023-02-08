@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrdersRequest;
 use App\Models\OrderEventModel;
 use App\Models\OrdersModel;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,7 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrdersRequest $request):array
+    public function store(OrdersRequest $request, OrderService $service):array
     {
         $data = $request->validated();
         $tickets = $data['tickets'];
@@ -45,19 +46,24 @@ class OrdersController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         try {
-            $cost = DB::table('event_place')->selectRaw('sum(price) as cost')
-                ->whereIn('id', $tickets)
-                ->first();
-            $data['summ'] = $cost->cost;
+            $data['summ'] = $service->getCostTickets($tickets);
             $data['count_tickets'] = count($tickets);
             $order = OrdersModel::create($data);
+            $paymeData = [];
+            if($data['payment_type'] == 'payme'){
+                $paymeData = [
+                    'amount'=>$order->summ,
+                    'order_id' =>$order->id,
+                    "merchant_id"=>"63e236afa52727e621b30c3c"
+                ];
+            }
             foreach ($tickets as $key => $value){
                 OrderEventModel::create([
                     'order_id'=>$order->id,
                     'event_place_id'=>$value
                 ]);
             }
-            return ['success'=>1, 'order'=>$order];
+            return ['success'=>1, 'payme'=>$paymeData];
         }catch (\Exception $e){
             abort(400, $e);
         }
