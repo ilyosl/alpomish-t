@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('pay_trans', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pay_time');
-            $table->integer('stat');
-            $table->integer('reason');
-            $table->string('pay_id');
-            $table->string('pay_amount');
-            $table->string('pay_account');
+            $table->bigInteger('pay_time')->nullable();
+            $table->integer('stat')->nullable();
+            $table->integer('reason')->nullable();
+            $table->string('pay_id')->nullable();
+            $table->string('pay_amount')->nullable();
+            $table->bigInteger('pay_account')->default(0)->nullable();
             $table->timestamps();
         });
     }
