@@ -248,6 +248,65 @@ class PaymeController extends Controller
 
         return $response;
     }
+    public function CancelTransaction($payload)
+    {
+        // $order = $this->get_order_by_transaction($payload);
+
+        $transaction_id = $payload['params']['id'];
+        $saved_transaction_id = $this->GetByIdTrans($transaction_id);
+
+        $order = OrdersModel::where('id', $saved_transaction_id->pay_acount)->first();
+
+        if ($transaction_id == $saved_transaction_id->pay_id) {
+
+            $cancel_time = $this->current_timestamp();
+
+            $response = [
+                "id" => $payload['id'],
+                "result" => [
+                    "transaction" => (string) $saved_transaction_id->id,
+                    "cancel_time" => $cancel_time,
+                    "state" => null
+                ]
+            ];
+
+            switch ($order->status) {
+                case '1':
+                    // add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
+                    $order->cancel_time = $cancel_time;
+                    $order->status = -2;//('cancelled'); // Change status to Cancelled
+                    $order->save(false);
+                    $response['result']['state'] = -1;
+                    break;
+
+                case '2':
+                    // add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
+                    $order->cancel_time = $cancel_time;
+                    $order->status = -3;//('refunded'); // Change status to Refunded
+                    $order->save(false);
+                    $response['result']['state'] = -2;
+                    break;
+
+                case '-2':
+                    $response['result']['cancel_time'] = $order->cancel_time;// $this->get_cancel_time($order);
+                    $response['result']['state'] = -1;
+                    break;
+
+                case '-3':
+                    $response['result']['cancel_time'] = $order->cancel_time;//$this->get_cancel_time($order);
+                    $response['result']['state'] = -2;
+                    break;
+
+                default:
+                    $response = $this->error_cancel($payload);
+                    break;
+            }
+        } else {
+            $response = $this->error_transaction($payload);
+        }
+
+        return $response;
+    }
     public function CreateTransactionData($addData)
     {
 
@@ -264,16 +323,14 @@ class PaymeController extends Controller
     }
     public function GetTransaction($payId)
     {
-
         $payInfo = PayTransModel::where('pay_acount',$payId)->first();
-
         return $payInfo;
     }
 
     public function GetByIdTrans($payId)
     {
-        $payInfo =  PayTransModel::where('pay_id',$payId)->first();
 
+        $payInfo =  PayTransModel::where('pay_id',$payId)->first();
         return $payInfo;
     }
     public function error_transaction($payload)
