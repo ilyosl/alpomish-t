@@ -2,9 +2,11 @@
 
 use App\Admin\Controllers\ApplicationForKatokServiceController;
 use App\Admin\Controllers\EventController;
+use App\Admin\Controllers\EventPlaceController;
 use App\Admin\Controllers\EventTimeController;
 use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
+
 use Illuminate\Routing\Router;
 
 Admin::routes();
@@ -21,10 +23,12 @@ Route::group([
     $router->resource('katok-service', KatokServiceController::class);
     $router->resource('app-service', ApplicationForKatokServiceController::class);
     $router->controller(EventController::class)->prefix('/events')->group(function(){
-        \Illuminate\Support\Facades\Route::get('/event-place','eventPlace');
+        \Illuminate\Support\Facades\Route::get('/event-place/{event}','eventPlace');
     })->name('admin.events.event-place');
     $router->resource('events', EventController::class);
 
     $router->resource('event-times', EventTimeController::class);
+
+    $router->resource('event-place', EventPlaceController::class);
 
 });

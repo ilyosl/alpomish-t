@@ -7,6 +7,7 @@ use App\Models\Events;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
 class EventController extends AdminController
@@ -26,20 +27,25 @@ class EventController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Events());
-
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('slug', __('Slug'));
         $grid->column('age_limit', __('Age limit'));
         $grid->column('desc', __('Desc'));
         $grid->column('image', __('Image'))->image();
-        $grid->column('cover', __('Cover'))->image();
-        $grid->column('meta_title', __('Meta title'));
-        $grid->column('meta_keywords', __('Meta keywords'));
-        $grid->column('meta_desc', __('Meta desc'));
+//        $grid->column('cover', __('Cover'))->image();
+//        $grid->column('meta_title', __('Meta title'));
+//        $grid->column('meta_keywords', __('Meta keywords'));
+//        $grid->column('meta_desc', __('Meta desc'));
         $grid->column('status', __('Status'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->tools(function ($tools){
+            $tools->append('Hello');
+        });
+        $grid->actions(function ($actions){
+           $actions->prepend('<a href="/admin/event-place/create?event='.$actions->getKey().'" class="btn btn-primary">Добавить месту</a><br>');
+        });
+//        $grid->column('created_at', __('Created at'));
+//        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }
@@ -98,9 +104,9 @@ class EventController extends AdminController
 
         return $form;
     }
-    public function eventPlace($request){
-        $form = new EventPlaceForm(new Form());
-        $form->text('name');
-        return $form;
+    public function eventPlace(Content $content){
+        return $content
+            ->title('Website setting')
+            ->body(new EventPlaceForm());
     }
 }
