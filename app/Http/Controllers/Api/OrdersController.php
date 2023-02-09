@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrdersRequest;
+use App\Http\Resources\OrdersResource;
 use App\Models\OrderEventModel;
 use App\Models\OrdersModel;
 use App\Services\OrderService;
@@ -19,7 +20,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user()->id;
+        $orders = OrdersModel::with('tickets')->where('user_id', $user)->get();
+        return OrdersResource::collection($orders);
     }
 
     /**
@@ -89,20 +92,20 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        $orderEvents = DB::table('order_event')->select('event_place_id')
-            ->where(['order_id'=> $id])->get();
-        $tickets = [];
-        foreach ($orderEvents as $orderEvent){
-            $tickets[]=$orderEvent->event_place_id;
-        }
-//        dd($tmpTicket);
-//        $tickets = implode(',',$tmpTicket);
-
-        $update =  DB::table('event_place')
-            ->whereIn('id', $tickets)
-            ->update(['status'=>2]);
-
-        return  $update;
+//        $orderEvents = DB::table('order_event')->select('event_place_id')
+//            ->where(['order_id'=> $id])->get();
+//        $tickets = [];
+//        foreach ($orderEvents as $orderEvent){
+//            $tickets[]=$orderEvent->event_place_id;
+//        }
+////        dd($tmpTicket);
+////        $tickets = implode(',',$tmpTicket);
+//
+//        $update =  DB::table('event_place')
+//            ->whereIn('id', $tickets)
+//            ->update(['status'=>2]);
+//
+//        return  $update;
     }
 
     /**
