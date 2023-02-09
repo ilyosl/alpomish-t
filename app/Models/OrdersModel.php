@@ -15,4 +15,8 @@ class OrdersModel extends Model
         'email','phone','status','confirm_buy','payment_type',
         'count_tickets','summ'
     ];
+
+    public function tickets(){
+        return $this->belongsToMany(EventPlaceModel::class,'order_event','order_id','event_place_id');
+    }
 }
