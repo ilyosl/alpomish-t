@@ -19,7 +19,13 @@ class KassaController extends Controller
 //        return  $request->post('data');
         foreach ($res['data'] as $qr){
             $time = 0;
-            if($qr['time'] == 35000 || $qr['time'] == 30000){
+            if(
+                $qr['time'] == 35000
+                || $qr['time'] == 30000
+                || $qr['time'] == 31500
+                || $qr['time'] == 24500
+                || $qr['time'] == 28000
+            ){
                 $time = 30;
             }elseif($qr['time'] == 70000 || $qr['time'] == 60000){
                 $time = 60;

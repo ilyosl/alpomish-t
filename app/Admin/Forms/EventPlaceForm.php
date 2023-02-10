@@ -61,9 +61,11 @@ class EventPlaceForm extends Form
 //            dd($event);
             if(isset($event->eventTimes[0]->eventDate)){
                 $this->text('eventName', 'Мероприятия')->default($event->title)->disable();
-                $this->text('event_date', 'Дата')->default($event->eventTimes[0]->eventDate)->disable();
-                $this->text('event_time', 'Время')->default($event->eventTimes[0]->eventTime)->disable();
+                $this->text('eventDate', 'Дата')->default($event->eventTimes[0]->eventDate)->disable();
+                $this->text('eventTime', 'Время')->default($event->eventTimes[0]->eventTime)->disable();
                 $this->hidden('event_id','')->default($event->id);
+                $this->hidden('event_date','')->default($event->eventTimes[0]->eventDate);
+                $this->hidden('event_time','')->default($event->eventTimes[0]->eventTime);
                 $this->text('block_name', 'Название блока')->rules('required');
                 $this->text('row_number', 'Номер ряда')->rules('required');
                 $this->text('place_numbers','Место')->placeholder('example: 1-18')->rules('required');

@@ -16,7 +16,7 @@ class PaymeController extends Controller
         // Authorize client
         $headers = getallheaders();
 
-        $encoded_credentials = base64_encode("Paycom:W@E?xe9fv3RH?nbv28P2%zpMAx39GPi@NQW6");
+        $encoded_credentials = base64_encode("Paycom:8QkhGFXs#JgK7KbbwC@0gsVYpYIAIUXDQKh1");
 
         if (!$headers || // there is no headers
             !isset($headers['Authorization']) || // there is no Authorization
