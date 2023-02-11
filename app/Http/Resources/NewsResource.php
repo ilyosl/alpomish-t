@@ -20,7 +20,7 @@ class NewsResource extends JsonResource
             'short_text'=>$this->short_text,
             'desc'=>$this->desc,
             'status'=>$this->status,
-            'image'=>$this->image,
+            'image'=>env('APP_URL').'/storage/'.$this->image,
             'created_at'=>date('d.m.Y H:i:s', strtotime($this->created_at))
         ];
     }
