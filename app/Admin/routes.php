@@ -1,6 +1,7 @@
 <?php
 
 use App\Admin\Controllers\ApplicationForKatokServiceController;
+use App\Admin\Controllers\BlockController;
 use App\Admin\Controllers\EventController;
 use App\Admin\Controllers\EventPlaceController;
 use App\Admin\Controllers\EventTimeController;
@@ -32,5 +33,6 @@ Route::group([
 
     $router->resource('event-place', EventPlaceController::class);
     $router->resource('section-page', SectionPageController::class);
+    $router->resource('blocks', BlockController::class);
 
 });
