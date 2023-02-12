@@ -28,6 +28,9 @@ class EventPlaceController extends Controller
                new EventPlaceCollection($service->getPlace($place), EventPlaceModel::getPriceRange())
         );
     }
+    public function blocks(){
+
+    }
 
     /**
      * Show the form for creating a new resource.
