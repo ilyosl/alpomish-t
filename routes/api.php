@@ -91,6 +91,7 @@ Route::controller(\App\Http\Controllers\Api\BasketController::class)->prefix('ba
     Route::post('/view', 'show');
     Route::post('/add', 'store');
     Route::post('/delete-ticket', 'destroy');
+    Route::post('/delete-all', 'deleteAll');
 });
 
 //Route::resource('/event-place', \App\Http\Controllers\Api\EventPlaceController::class, ['except' => ['index']]);

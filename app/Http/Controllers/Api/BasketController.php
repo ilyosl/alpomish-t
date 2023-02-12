@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BasketRequest;
 use App\Models\BasketModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class BasketController extends Controller
 {
@@ -40,5 +43,15 @@ class BasketController extends Controller
         }catch (\Exception $e){
             abort(402, $e);
         }
+    }
+    public function deleteAll(Request $request){
+        $tickets = $request->post('tickets');
+        try {
+            DB::table('basket_tickets')->whereIn('ticket_id', $tickets)->delete();
+            return ['success'=>1];
+        }catch (\Exception $e){
+            abort(400,  $e);
+        }
+
     }
 }
