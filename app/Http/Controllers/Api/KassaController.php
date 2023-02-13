@@ -96,7 +96,10 @@ class KassaController extends Controller
                 return ['success'=>0, 'error'=>'not found'];
             }
         }else{
-            $data = KatokQrcodeModel::where(['status'=>$status])->orderBy('id', 'desc')->get();
+            if($status)
+                $data = KatokQrcodeModel::where(['status'=>$status])->orderBy('id', 'desc')->limit(10)->get();
+            else
+                $data = KatokQrcodeModel::query()->orderBy('id', 'desc')->limit(10)->get();
             return  $data;
         }
     }
