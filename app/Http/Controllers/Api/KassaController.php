@@ -80,20 +80,25 @@ class KassaController extends Controller
     public function getFeedKatok(Request $request) {
         $status = $request->query('status');
         $is_read = $request->query('is_read');
-        $isReadFirst = KatokQrcodeModel::where(['status'=>$status,'is_read'=>$is_read])->first();
-        if($isReadFirst){
-            $isReadFirst->is_read = $is_read+1;
-            $isReadFirst->save();
-            $to_time = strtotime($isReadFirst->exitDate);
-            $from_time = strtotime($isReadFirst->finishDate);
+        $isList = $request->query('is_list');
+        if($isList == 0){
+            $isReadFirst = KatokQrcodeModel::where(['status'=>$status,'is_read'=>$is_read])->first();
+            if($isReadFirst){
+                $isReadFirst->is_read = $is_read+1;
+                $isReadFirst->save();
+                $to_time = strtotime($isReadFirst->exitDate);
+                $from_time = strtotime($isReadFirst->finishDate);
 
-            $diffTime = round(abs($to_time - $from_time) / 60);
-            $isReadFirst->diffTime = $diffTime;
-            return $isReadFirst;
+                $diffTime = round(abs($to_time - $from_time) / 60);
+                $isReadFirst->diffTime = $diffTime;
+                return $isReadFirst;
+            }else{
+                return ['success'=>0, 'error'=>'not found'];
+            }
         }else{
-            return ['success'=>0, 'error'=>'not found'];
+            $data = KatokQrcodeModel::where(['status'=>$status])->orderBy('id', 'desc')->get();
+            return  $data;
         }
-
     }
     public function extendQrcode(Request $request, katokQrcode $service){
         $qrcode = $request->post('qrcode');

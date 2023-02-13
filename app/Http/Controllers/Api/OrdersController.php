@@ -10,6 +10,8 @@ use App\Models\OrdersModel;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Generator;
 
 class OrdersController extends Controller
 {
@@ -92,7 +94,9 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        return uniqid('');
+        $qrcode = new Generator();
+
+        return $qrcode->generate(uniqid());
 //        $orderEvents = DB::table('order_event')->select('event_place_id')
 //            ->where(['order_id'=> $id])->get();
 //        $tickets = [];
