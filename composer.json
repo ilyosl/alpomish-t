@@ -18,6 +18,7 @@
         "lee-to/laravel-phone-auth": "0.5.1.6",
         "livewire/livewire": "^2.10",
         "predis/predis": "^2.1",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-sluggable": "^3.4",
         "textalk/websocket": "^1.6"
     },

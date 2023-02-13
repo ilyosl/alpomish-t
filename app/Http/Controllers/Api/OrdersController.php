@@ -92,6 +92,7 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
+        return uniqid('');
 //        $orderEvents = DB::table('order_event')->select('event_place_id')
 //            ->where(['order_id'=> $id])->get();
 //        $tickets = [];

@@ -27,7 +27,13 @@ class KassaController extends Controller
                 || $qr['time'] == 28000
             ){
                 $time = 30;
-            }elseif($qr['time'] == 70000 || $qr['time'] == 60000){
+            }elseif(
+                $qr['time'] == 70000
+                || $qr['time'] == 60000
+                || $qr['time'] == 63000
+                || $qr['time'] == 56000
+                || $qr['time'] == 49000
+            ){
                 $time = 60;
             }
             $checkQrcode = KatokQrcodeModel::where(['status'=>0,'qrcode'=>$qr['qrcode']])->whereDate('sell_date', Carbon::today())->first();
