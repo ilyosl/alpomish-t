@@ -22,3 +22,5 @@ use Encore\Admin\Form;
 Form::extend('ckeditor', \App\Admin\Extensions\Form\CKEditor::class);
 Form::forget(['map', 'editor']);
 \Encore\Admin\Admin::css("/css/newfont.css");
+\Encore\Admin\Admin::css('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css');
+\Encore\Admin\Admin::js('https://code.jquery.com/ui/1.13.2/jquery-ui.js');
