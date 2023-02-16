@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BasketRequest;
 use App\Models\BasketModel;
+use App\Models\EventPlaceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +28,13 @@ class BasketController extends Controller
     }
     public function store(BasketRequest $request){
         $ticketId = $request->validated();
-        $addTicket = BasketModel::create(['ticket_id'=>$ticketId['ticket_id'], 'user_id'=>auth()->user()->id]);
-        return $addTicket;
+        $getTicket = EventPlaceModel::query()->where('id', $ticketId['ticket_id'])->first();
+        if($getTicket) {
+            $addTicket = BasketModel::create(['ticket_id' => $ticketId['ticket_id'], 'user_id' => auth()->user()->id]);
+            $getTicket->status = 1;
+            $getTicket->save();
+            return $addTicket;
+        }
     }
     public function destroy(BasketRequest $request){
         $ticketId = $request->validated();

@@ -44,7 +44,11 @@ class PlaceController extends \App\Http\Controllers\Controller
         $tmpPlace = BlocksModel::query()->where('name_block',$data['block_name'])->first();
         $convert = $service->convertPlaces($tmpPlace, $places);
         $event = Events::query()->with('eventTimes')->where('id', $data['event_id'])->first();
-
+        $content->breadcrumb(
+            ['text' => 'Админ панель', 'url' => '/admin'],
+            ['text' => 'Мери', 'url' => '/admin/users'],
+            ['text' => 'Edit user']
+        );
         return $content->title('Управления местами')
             ->view('admin.block_page',compact("places", 'event', 'tmpPlace','convert'));
     }
