@@ -3,6 +3,7 @@
 
         <div class="box-header with-border">
             <h3 class="box-title">{{ $event->title }}</h3>
+{{--            <button id="myButton">My button</button>--}}
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
@@ -21,6 +22,7 @@
                            rel="tooltip"
                            data-trigger="hover"
                            data-placement="bottom"
+                           data-title ="<strong>Place</strong>"
                            data-html="true"
                            id="{{$p->id}}"
                            data-event="{{ $event->id }}"
@@ -45,6 +47,12 @@
         fill: #0A075F;
     }
 </style>
+
+<script>
+    // With the above scripts loaded, you can call `tippy()` with a CSS
+    // selector and a `content` prop:
+
+</script>
 <script>
     $(function (){
         $('[rel="tooltip"]').tooltip({track:true, html:true, title: 'please wait'})
