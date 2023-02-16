@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\openDoor;
 use App\Http\Requests\QrcodeRequest;
+use App\Models\BlocksModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -15,8 +16,8 @@ class KassirController extends Controller
         $this->middleware('auth');
     }
     public function index(openDoor $action){
-
-        return view('kassir.index');
+        $placePath = BlocksModel::query()->orderBy('sort_svg','asc')->get();
+        return view('admin.place', ['path'=> $placePath]);
     }
     public function getInfoByQr(QrcodeRequest $request){
         $data = $request->validated();

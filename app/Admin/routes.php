@@ -21,6 +21,9 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
+    $router->get('/place-control', 'PlaceController@index')->name('place');
+    $router->get('/place-control/view', 'PlaceController@view')->name('view');
+    $router->post('/place-control/set-ticket', 'PlaceController@setTicket')->name('ticket');
     $router->resource('news', NewsController::class);
     $router->resource('katok-service', KatokServiceController::class);
     $router->resource('app-service', ApplicationForKatokServiceController::class);
