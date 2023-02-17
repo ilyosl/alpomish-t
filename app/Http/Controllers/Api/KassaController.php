@@ -54,6 +54,30 @@ class KassaController extends Controller
         }
         return response(['success'=>1]);
     }
+    public function addData(Request $request){
+        $res = $request->post('data');
+        $type = $request->post('type');
+//        return  $type;
+        foreach ($res as $qr){
+//            return $qr;
+            $checkQrcode = KatokQrcodeModel::where(['status'=>0,'qrcode'=>$qr['qrcode']])->whereDate('sell_date', Carbon::today())->first();
+            if(empty($checkQrcode)) {
+                $add = KatokQrcodeModel::create([
+                    'qrcode' => $qr['qrcode'],
+                    'price' => $qr['price'],
+                    'time' => $qr['time'],
+                    'sell_date' => date('Y-m-d H:i:s', strtotime("now")),
+                    'startDate' => date('Y-m-d H:i:s', strtotime("now")),
+                    'finishDate' => date('Y-m-d H:i:s', strtotime("+" . $qr['time'] . " minutes")),
+                    'exitDate' => date('Y-m-d H:i:s', strtotime("+" . $qr['time'] . " minutes")),
+                    'status' => 0,
+                    'user_id'=>auth()->user()->id,
+                    'type' => $type
+                ]);
+            }
+        }
+        return response(['success'=>1]);
+    }
     public function checkQrcode(Request $request){
         $qrcode = $request->post('qrcode');
         if($qrcode){
