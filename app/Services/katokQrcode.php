@@ -64,14 +64,14 @@ class katokQrcode
     }
     public function getStaticByDay($type =''){
         $query = "SELECT sum(price) as price_sum, type, count(id) as ticket_count
-	FROM public.\"katokQrcode\" Where date_trunc('day', sell_date) = '".date('Y-m-d', time())."' group by type";
+	FROM public.\"katokQrcode\" Where user_id= ".auth()->user()->id." and date_trunc('day', sell_date) = '".date('Y-m-d', time())."' group by type";
         $info = DB::select($query);
             //DB::table('katokQrcode')->where('type',$type)->whereDay('sell_date', date('d', time()))->whereMonth('sell_date',date('m', time()))->get();
         return $info;
     }
     public function getStaticServiceByDay($type = 0){
         $query = "SELECT sum(price*count) as price_sum, sum(count) as count, payment, count(id) as service_count
-	FROM public.\"additional_service\" Where date_trunc('day', sell_date) = '".date('Y-m-d', time())."' and type='".$type."' group by payment";
+	FROM public.\"additional_service\" Where user_id= ".auth()->user()->id." and date_trunc('day', sell_date) = '".date('Y-m-d', time())."' and type='".$type."' group by payment";
         $info = DB::select($query);
         //DB::table('katokQrcode')->where('type',$type)->whereDay('sell_date', date('d', time()))->whereMonth('sell_date',date('m', time()))->get();
         return $info;
