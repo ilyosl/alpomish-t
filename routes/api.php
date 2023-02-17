@@ -56,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(\App\Http\Controllers\Api\KassaController::class)->group(function (){
         Route::post('/kassa/get-data', 'getData')->middleware('cors');
+        Route::post('/kassa/add-data', 'addData')->middleware('cors');
         Route::post('/kassa/check-qrcode', 'checkQrcode')->middleware('cors');
         Route::post('/kassa/status-qrcode', 'countEnter')->middleware('cors');
         Route::post('/kassa/extend-qrcode', 'extendQrcode')->middleware('cors');
