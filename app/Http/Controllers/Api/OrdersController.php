@@ -96,7 +96,7 @@ class OrdersController extends Controller
     {
         $qrcode = new Generator();
 
-        return $qrcode->generate(uniqid());
+        return uniqid();
 //        $orderEvents = DB::table('order_event')->select('event_place_id')
 //            ->where(['order_id'=> $id])->get();
 //        $tickets = [];

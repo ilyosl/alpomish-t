@@ -11,7 +11,7 @@ class AdditionalServiceModel extends Model
     use HasFactory;
     protected $table = 'additional_service';
 
-    protected $fillable = ['type','payment','price','sell_date','count'];
+    protected $fillable = ['type','payment','price','sell_date','count','user_id'];
 
     public function getStaticByDay(){
         $query = "SELECT sum(price*count) as price_sum, type, count(id) as ticket_count
