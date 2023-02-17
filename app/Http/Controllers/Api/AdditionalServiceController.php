@@ -49,7 +49,8 @@ class AdditionalServiceController extends Controller
                     'price'=>$service['price'],
                     'payment'=>$service['payment'],
                     'sell_date'=>date('Y-m-d H:i:s', time()),
-                    'count'=>$service['count']
+                    'count'=>$service['count'],
+                    'user_id'=>auth()->user()->id
                 ]);
             }
             return ['success'=>1, 'data'=>$adding];

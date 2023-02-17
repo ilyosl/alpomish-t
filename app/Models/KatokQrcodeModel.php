@@ -15,6 +15,6 @@ class KatokQrcodeModel extends Model
     protected $fillable =
         [
             'qrcode','price','time', 'exitDate', 'type', 'parent_id',
-            'startDate','finishDate','status','is_read','sell_date'
+            'startDate','finishDate','status','is_read','sell_date', 'user_id'
         ];
 }

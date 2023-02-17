@@ -47,6 +47,7 @@ class KassaController extends Controller
                     'finishDate' => date('Y-m-d H:i:s', strtotime("+" . $time . " minutes")),
                     'exitDate' => date('Y-m-d H:i:s', strtotime("+" . $time . " minutes")),
                     'status' => 0,
+                    'user_id'=>auth()->user()->id,
                     'type' => $res['type']
                 ]);
             }
@@ -121,6 +122,7 @@ class KassaController extends Controller
                 'exitDate'=>date('Y-m-d H:i:s', $finD),
                 'status' => 1,
                 'type'=> $type,
+                'user_id'=>auth()->user()->id,
                 'parent_id' => $katok->id
             ]);
             $katok->status = 3;
