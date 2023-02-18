@@ -17,6 +17,11 @@ class OrdersModel extends Model
     ];
 
     public function tickets(){
-        return $this->belongsToMany(EventPlaceModel::class,'order_event','order_id','event_place_id');
+        return $this->belongsToMany(EventPlaceModel::class,
+            'order_event',
+            'order_id',
+            'event_place_id'
+        )->with('qrcode');
     }
+
 }
