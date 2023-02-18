@@ -27,7 +27,7 @@ class OrdersController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new OrdersModel());
-
+        $grid->disableCreateButton();
         $grid->column('id', __('Id'));
 //        $grid->column('user_id', __('User id'));
 
@@ -56,10 +56,10 @@ class OrdersController extends AdminController
         $grid->column('payment_type', __('Тип оплаты'));
         $grid->column('count_tickets', __('Кол. билетов'))->expand(function ($model){
             $tickets = $model->tickets()->get()->map(function ($ticket) {
-                return $ticket->only(['row', 'place', 'block_name']);
+                return $ticket->only(['row', 'place', 'block_name','event_time','event_date','price']);
             });
 
-            return new Table(['Ряд', 'Места', 'Название блока'], $tickets->toArray());
+            return new Table(['Ряд', 'Места', 'Название блока','Время','Дата','Стоимость'], $tickets->toArray());
         });
         $grid->column('summ', __('Стоимост'));
 //        $grid->column('create_time', __('Create time'));
