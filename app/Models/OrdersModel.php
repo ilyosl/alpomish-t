@@ -13,7 +13,7 @@ class OrdersModel extends Model
     protected $fillable = [
         'user_id','first_name','last_name',
         'email','phone','status','confirm_buy','payment_type',
-        'count_tickets','summ'
+        'count_tickets','summ','event_id'
     ];
 
     public function tickets(){
@@ -23,5 +23,6 @@ class OrdersModel extends Model
             'event_place_id'
         )->with('qrcode');
     }
+
 
 }

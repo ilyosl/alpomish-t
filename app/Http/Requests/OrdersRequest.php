@@ -29,6 +29,7 @@ class OrdersRequest extends FormRequest
             'email'=>'required|email',
             'phone'=>'required|string',
             'payment_type'=>'required|string',
+            'event_id'=>'required|integer',
             'tickets'=>'array'
         ];
     }
