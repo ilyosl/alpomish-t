@@ -36,8 +36,10 @@ Route::get('/', function (){
     return redirect('/api');
 });
 Route::controller(\App\Http\Controllers\PostDeviceLogController::class)->group(function (){
+    Route::post('/tes', 'view');
     Route::post('/listening', 'index');
     Route::get('/dump', 'listData');
+
 });
 
 //Route::get('/login', \App\Http\Livewire\LoginComponent::class)->name('login.index');

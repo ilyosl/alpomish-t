@@ -54,7 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::controller(\App\Http\Controllers\Api\KassaController::class)->group(function (){
+    Route::controller(\App\Http\Controllers\Api\KassaController::class)->middleware('auth:sanctum')->group(function (){
         Route::post('/kassa/get-data', 'getData')->middleware('cors');
         Route::post('/kassa/add-data', 'addData')->middleware('cors');
         Route::post('/kassa/check-qrcode', 'checkQrcode')->middleware('cors');

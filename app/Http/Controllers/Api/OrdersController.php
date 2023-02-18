@@ -23,7 +23,7 @@ class OrdersController extends Controller
     public function index()
     {
         $user = auth()->user()->id;
-        $orders = OrdersModel::with('tickets')->where('user_id', $user)->get();
+        $orders = OrdersModel::with(['tickets','event'])->where('user_id', $user)->get();
         return OrdersResource::collection($orders);
     }
 

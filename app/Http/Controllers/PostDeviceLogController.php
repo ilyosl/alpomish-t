@@ -6,6 +6,7 @@ use App\Models\PostDeviceLogModel;
 use App\Services\katokQrcode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PostDeviceLogController extends Controller
 {
@@ -39,5 +40,11 @@ class PostDeviceLogController extends Controller
         $data = DB::select($query);
         echo "<pre>";
         print_r($data);
+    }
+    public function view(Request $request){
+        dd($request->post());
+        Log::log('post', 'post', $request->post());
+
+        return ['success'=>1];
     }
 }
