@@ -6,6 +6,7 @@ namespace App\Admin\Controllers;
 use App\Models\BlocksModel;
 use App\Models\EventPlaceModel;
 use App\Models\Events;
+use App\Models\TicketQrcodeModel;
 use App\Services\EventPlaceService;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
@@ -75,7 +76,7 @@ class PlaceController extends \App\Http\Controllers\Controller
                             'row' => $joyqator[0],
                         ])->first();
                         if (empty($checkPlace)) {
-                            EventPlaceModel::query()->create([
+                           $addTicket = EventPlaceModel::query()->create([
                                 'event_id' => $eventId,
                                 'block_name' => $blockName,
                                 'event_time' => $eventTime,
@@ -85,6 +86,11 @@ class PlaceController extends \App\Http\Controllers\Controller
                                 'price'=>$costTicket,
                                 'status'=>$status
                             ]);
+                           $addQrcode = TicketQrcodeModel::query()->create([
+                               'event_place_id' => $addTicket->id,
+                               'status' => 0,
+                               'qrcode' => uniqid()
+                           ]);
                         }else{
                             $checkPlace->status = $status;
                             $checkPlace->price = $costTicket;
