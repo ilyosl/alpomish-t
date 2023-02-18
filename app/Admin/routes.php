@@ -8,6 +8,7 @@ use App\Admin\Controllers\EventTimeController;
 use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
 
+use App\Admin\Controllers\OrdersController;
 use App\Admin\Controllers\SectionPageController;
 use Illuminate\Routing\Router;
 
@@ -37,5 +38,6 @@ Route::group([
     $router->resource('event-place', EventPlaceController::class);
     $router->resource('section-page', SectionPageController::class);
     $router->resource('blocks', BlockController::class);
+    $router->resource('orders', OrdersController::class);
 
 });
