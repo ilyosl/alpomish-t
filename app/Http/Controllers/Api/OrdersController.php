@@ -95,7 +95,7 @@ class OrdersController extends Controller
     public function edit($id)
     {
         if(intval($id)){
-            return new OrdersResource(OrdersModel::with('tickets')->where('id', $id)->first());
+            return new OrdersResource(OrdersModel::with(['tickets','event'])->where('id', $id)->first());
         }
 //        $orderEvents = DB::table('order_event')->select('event_place_id')
 //            ->where(['order_id'=> $id])->get();
