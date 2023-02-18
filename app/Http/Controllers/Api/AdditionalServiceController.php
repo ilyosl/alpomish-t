@@ -50,7 +50,7 @@ class AdditionalServiceController extends Controller
                     'payment'=>$service['payment'],
                     'sell_date'=>date('Y-m-d H:i:s', time()),
                     'count'=>$service['count'],
-                    'user_id'=>auth()->user()->id
+                    'user_id'=>auth()->user()->id ?? 1
                 ]);
             }
             return ['success'=>1, 'data'=>$adding];
