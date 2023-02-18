@@ -22,4 +22,7 @@ class EventPlaceModel extends Model
         $info = DB::select($query);
         return $info;
     }
+    public function qrcode(){
+        return $this->hasOne(TicketQrcodeModel::class, 'event_place_id');
+    }
 }

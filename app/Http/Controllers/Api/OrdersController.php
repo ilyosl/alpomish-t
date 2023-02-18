@@ -94,9 +94,9 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        $qrcode = new Generator();
-
-        return uniqid();
+        if(intval($id)){
+            return new OrdersResource(OrdersModel::with('tickets')->where('id', $id)->first());
+        }
 //        $orderEvents = DB::table('order_event')->select('event_place_id')
 //            ->where(['order_id'=> $id])->get();
 //        $tickets = [];
