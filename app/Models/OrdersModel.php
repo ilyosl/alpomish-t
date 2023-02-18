@@ -23,6 +23,9 @@ class OrdersModel extends Model
             'event_place_id'
         )->with('qrcode');
     }
+    public function event(){
+        return $this->belongsTo(Events::class, 'event_id');
+    }
 
 
 }
