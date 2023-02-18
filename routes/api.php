@@ -41,7 +41,7 @@ Route::controller(\App\Http\Controllers\Api\UserProfileController::class)->prefi
     Route::get('/', 'index');
 
 });
-Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->middleware('auth:sanctum')->group(function (){
+Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->group(function (){
     Route::post('/', 'store')->middleware('cors');
     Route::get('/', 'index')->middleware('cors');
 });
@@ -54,7 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::controller(\App\Http\Controllers\Api\KassaController::class)->middleware('auth:sanctum')->group(function (){
+    Route::controller(\App\Http\Controllers\Api\KassaController::class)->group(function (){
         Route::post('/kassa/get-data', 'getData')->middleware('cors');
         Route::post('/kassa/add-data', 'addData')->middleware('cors');
         Route::post('/kassa/check-qrcode', 'checkQrcode')->middleware('cors');
