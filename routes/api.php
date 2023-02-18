@@ -42,8 +42,8 @@ Route::controller(\App\Http\Controllers\Api\UserProfileController::class)->prefi
 
 });
 Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->middleware('auth:sanctum')->group(function (){
-    Route::post('/', 'store');
-    Route::get('/', 'index');
+    Route::post('/', 'store')->middleware('cors');
+    Route::get('/', 'index')->middleware('cors');
 });
 Route::controller(\App\Http\Controllers\Api\SectionPageController::class)->prefix('/section-page')->group(function (){
     Route::post('/add', 'store')->middleware('auth:sanctum');
