@@ -22,7 +22,10 @@ class PlaceController extends \App\Http\Controllers\Controller
             $event = Events::query()->with('eventTimes')->where('id', intval($eventId))->first();
         }
         $placePath = $this->Places();
-
+        $content->breadcrumb(
+//            ['text' => 'Админ панель', 'url' => '/admin'],
+            ['text' => 'Места'],
+        );
         return $content
             ->title('Управления местами')
             ->description($eventTitle.$event->title)
@@ -47,8 +50,8 @@ class PlaceController extends \App\Http\Controllers\Controller
         $event = Events::query()->with('eventTimes')->where('id', $data['event_id'])->first();
         $content->breadcrumb(
             ['text' => 'Админ панель', 'url' => '/admin'],
-            ['text' => 'Мери', 'url' => '/admin/users'],
-            ['text' => 'Edit user']
+            ['text' => 'Места', 'url' => '/place-control?eventId='.$data['event_id'].''],
+            ['text'=>'Управления']
         );
         return $content->title('Управления местами')
             ->view('admin.block_page',compact("places", 'event', 'tmpPlace','convert'));
@@ -94,6 +97,7 @@ class PlaceController extends \App\Http\Controllers\Controller
                         }else{
                             $checkPlace->status = $status;
                             $checkPlace->price = $costTicket;
+                            $checkPlace->save();
                         }
                     }
                 }
