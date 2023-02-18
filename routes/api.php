@@ -41,7 +41,7 @@ Route::controller(\App\Http\Controllers\Api\UserProfileController::class)->prefi
     Route::get('/', 'index');
 
 });
-Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->group(function (){
+Route::controller(\App\Http\Controllers\Api\AdditionalServiceController::class)->prefix('add-service')->middleware('auth:sanctum')->group(function (){
     Route::post('/', 'store');
     Route::get('/', 'index');
 });

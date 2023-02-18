@@ -28,16 +28,28 @@ class EventPlaceController extends AdminController
         $grid = new Grid(new EventPlaceModel());
         $grid->disableCreateButton();
         $grid->column('id', __('Id'));
-        $grid->column('place', __('Place'));
-        $grid->column('row', __('Row'));
-        $grid->column('event_id', __('Event id'));
-        $grid->column('price', __('Price'));
-        $grid->column('block_name', __('Block name'));
-        $grid->column('event_time', __('Event time'));
-        $grid->column('event_date', __('Event date'));
-        $grid->column('status', __('Status'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('place', __('Места'))->filter();
+        $grid->column('row', __('Ряд'))->filter();
+        $grid->column('event_id', __('Event id'))->filter();
+        $grid->column('price', __('Стоимость'));
+        $grid->column('block_name', __('Имя блока'))->filter();
+        $grid->column('event_time', __('Время'));
+        $grid->column('event_date', __('Дата'));
+        $grid->column('status', __('Статус'))->display(function ($status){
+            switch ($status){
+                case 3:
+                    return '<span style="font-size:85%;" class="label label-danger"> Пригласительный </span>';
+                case 0:
+                    return '<span style="font-size:85%;" class="label label-success"> На продаже </span>';
+                case 2:
+                    return '<span style="font-size:85%;" class="label label-danger"> Продано </span>';
+                case 1:
+                    return '<span style="font-size:85%;" class="label label-success"> Забронировано </span>';
+
+            }
+        });
+//        $grid->column('created_at', __('Created at'));
+//        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }

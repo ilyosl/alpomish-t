@@ -41,7 +41,7 @@ class EventController extends AdminController
 //        $grid->column('status', __('Status'));
         $grid->column('meta_desc', __('Управление местами'))->display(function ($desc){
             $content = '<a href="/admin/place-control?eventId='.$this->id.'" class="btn btn-primary" style="margin-bottom: 15px"><i class="fa fa-braille" aria-hidden="true" style="position: relative; left: -3px;"></i>Управление местами</a><br>';
-            return $content.' <a href="#" class="btn btn-primary"><i class="fa fa-bar-chart" aria-hidden="true" style="position: relative; left: -3px;"></i>Статистика билетов</a><br>';
+            return $content.' <a href="/admin/event-place?event_id='.$this->id.'" class="btn btn-primary"><i class="fa fa-bar-chart" aria-hidden="true" style="position: relative; left: -3px;"></i>Статистика билетов</a><br>';
         });
 //        $grid->tools(function ($tools){
 //            $tools->append('Hello');
