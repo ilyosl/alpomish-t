@@ -6,4 +6,3 @@
             <canvas id="typeListDay"></canvas>
         </div>
     </div>
-
