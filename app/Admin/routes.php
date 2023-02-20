@@ -5,6 +5,7 @@ use App\Admin\Controllers\BlockController;
 use App\Admin\Controllers\EventController;
 use App\Admin\Controllers\EventPlaceController;
 use App\Admin\Controllers\EventTimeController;
+use App\Admin\Controllers\KatokListController;
 use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
 
@@ -31,6 +32,9 @@ Route::group([
     $router->controller(EventController::class)->prefix('/events')->group(function(){
         \Illuminate\Support\Facades\Route::get('/event-place/{event}','eventPlace');
     })->name('admin.events.event-place');
+    $router->controller(\App\Admin\Controllers\KatokStaticsController::class)->group(function (){
+        \Illuminate\Support\Facades\Route::get('/katok-statics','index');
+    });
     $router->resource('events', EventController::class);
 
     $router->resource('event-times', EventTimeController::class);
@@ -39,5 +43,6 @@ Route::group([
     $router->resource('section-page', SectionPageController::class);
     $router->resource('blocks', BlockController::class);
     $router->resource('orders', OrdersController::class);
+    $router->resource('katok-qrcode', KatokListController::class);
 
 });

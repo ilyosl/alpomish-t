@@ -62,6 +62,30 @@ class katokQrcode
             return false;
         }
     }
+    public function getDateRangeStat($dateFrom, $dateTo){
+        $qrCode = DB::table('katokQrcode')->whereBetween('sell_date', [$dateFrom, $dateTo])->get();
+        $resData = [];
+        $priceData = [];
+        if($qrCode){
+            foreach ($qrCode as $code){
+                $resData[] = date('Y-m-d', strtotime($code->sell_date));
+                $priceData[] = ['t'=> date('Y-m-d', strtotime($code->sell_date)), 'y'=>$code->price];
+            }
+        }
+        return ['date'=>$resData, 'price'=>$priceData];
+    }
+    public function getStaticByType(){
+        $query = "SELECT sum(price) as price_sum, type, count(id) as ticket_count
+	FROM public.\"katokQrcode\" group by type";
+        $info = DB::select($query);
+        $typeList = [];
+        $priceList = [];
+        foreach ($info as $item){
+            $typeList[]=$item->type;
+            $priceList[]=$item->price_sum;
+        }
+        return ['type'=>$typeList,'price'=>$priceList];
+    }
     public function getStaticByDay($type =''){
         $query = "SELECT sum(price) as price_sum, type, count(id) as ticket_count
 	FROM public.\"katokQrcode\" Where user_id= ".auth()->user()->id." and date_trunc('day', sell_date) = '".date('Y-m-d', time())."' group by type";

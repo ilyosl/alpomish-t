@@ -80,6 +80,7 @@ class KassaController extends Controller
     }
     public function checkQrcode(Request $request){
         $qrcode = $request->post('qrcode');
+
         if($qrcode){
             $isExists = KatokQrcodeModel::where([ 'qrcode'=>$qrcode])->orderBy('id','DESC')->first();
             if($isExists){

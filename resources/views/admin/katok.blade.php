@@ -1,77 +1,95 @@
-@extends('layouts.admin')
-@section('title')
-    Katok
-@endsection
-@section('content')
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Сейчас на катке</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-
-                    </div>
+                    {!! $onlineKatok !!}
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>53</h3>
-
-                            <p>Продана билетов</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-
-                    </div>
+                    {!! $sellTickets !!}
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>44</h3>
-
-                            <p>Продана на сегодня</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-
-                    </div>
+                   {!! $sellTicketsToday !!}
                 </div>
                 <!-- ./col -->
 
                 <!-- ./col -->
             </div>
             <div class="row">
-                <div class="card bg-gradient-success">
-                    <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-
-                        <h3 class="card-title">
-                            <i class="far fa-calendar-alt"></i>
-                            Календар
-                        </h3>
-
+                <div class="col-md-6">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Продажа билетов</h3>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body pt-0">
-                        <!--The calendar -->
-                        <div id="calendar"></div>
-                    </div>
-                    <!-- /.card-body -->
                 </div>
+                <div class="col-md-6">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Продажа по оплату</h3>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="typeList"></canvas>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
-@endsection
+    <script>
+        $(function () {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var type = document.getElementById("typeList").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {!! $data['date'] !!},
+                    datasets: [{
+                        label: 'Продажа билетов',
+                        data: {!! $data['price'] !!},
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+            var typeList = new Chart(type, {
+                type: 'pie',
+                data: {
+                    labels: {!! $priceType['type'] !!},
+                    datasets: [{
+                        label: 'Продажа по оплату',
+                        data: {!! $priceType['price'] !!},
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+        });
+    </script>
