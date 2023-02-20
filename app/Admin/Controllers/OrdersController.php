@@ -17,7 +17,7 @@ class OrdersController extends AdminController
      *
      * @var string
      */
-    protected $title = 'OrdersModel';
+    protected $title = 'Заказы';
 
     /**
      * Make a grid builder.
@@ -54,7 +54,7 @@ class OrdersController extends AdminController
 //        $grid->column('created_at', __('Created at'));
 //        $grid->column('updated_at', __('Updated at'));
         $grid->column('payment_type', __('Тип оплаты'));
-        $grid->column('count_tickets', __('Кол. билетов'))->expand(function ($model){
+        $grid->column('count_tickets', __('Кол. билетов'))->modal('Список билетов',function ($model){
             $tickets = $model->tickets()->get()->map(function ($ticket) {
                 return $ticket->only(['row', 'place', 'block_name','event_time','event_date','price']);
             });
