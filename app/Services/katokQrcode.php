@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Actions\openDoor;
 use App\Models\DeviceListModel;
 use App\Models\KatokQrcodeModel;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -62,14 +63,20 @@ class katokQrcode
             return false;
         }
     }
-    public function getDateRangeStat($dateFrom, $dateTo){
-        $qrCode = DB::table('katokQrcode')->whereBetween('sell_date', [$dateFrom, $dateTo])->get();
+    public function getDateRangeStat($dateFrom,$dateTo){
+
+         $query = "select sum(price) as price, date(sell_date) as sell_date
+            from \"katokQrcode\"
+            where sell_date >= '".$dateFrom."' and sell_date <= '".$dateTo."'
+            GROUP BY date(sell_date) ORDER BY sell_date ASC";
+        $qrCode = DB::select($query);
+
         $resData = [];
         $priceData = [];
         if($qrCode){
             foreach ($qrCode as $code){
-                $resData[] = date('Y-m-d', strtotime($code->sell_date));
-                $priceData[] = ['t'=> date('Y-m-d', strtotime($code->sell_date)), 'y'=>$code->price];
+                $resData[] = $code->sell_date;
+                $priceData[] = ['t'=> $code->sell_date, 'y'=>$code->price];
             }
         }
         return ['date'=>$resData, 'price'=>$priceData];
@@ -86,9 +93,26 @@ class katokQrcode
         }
         return ['type'=>$typeList,'price'=>$priceList];
     }
-    public function getStaticByDay($type =''){
+    public function serializeDayStatic(){
+        $data = $this->getStaticByDay(false);
+
+        $typeList = [];
+        $priceList = [];
+        $countTicket = [];
+        foreach ($data as $item){
+            $typeList[]=$item->type;
+            $priceList[]=$item->price_sum;
+            $countTicket[]=$item->ticket_count;
+        }
+        return ['type'=>$typeList,'price'=>$priceList,'countTicket'=>$countTicket];
+    }
+    public function getStaticByDay($withKass = true){
+        $kassId = '';
+        if($withKass){
+            $kassId = " user_id= ".auth()->user()->id." and ";
+        }
         $query = "SELECT sum(price) as price_sum, type, count(id) as ticket_count
-	FROM public.\"katokQrcode\" Where user_id= ".auth()->user()->id." and date_trunc('day', sell_date) = '".date('Y-m-d', time())."' group by type";
+	FROM public.\"katokQrcode\" Where ".$kassId." date_trunc('day', sell_date) = '".date('Y-m-d', time())."' group by type";
         $info = DB::select($query);
             //DB::table('katokQrcode')->where('type',$type)->whereDay('sell_date', date('d', time()))->whereMonth('sell_date',date('m', time()))->get();
         return $info;
