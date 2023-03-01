@@ -1,4 +1,6 @@
-    <section class="content">
+
+
+<section class="content">
         <div class="container-fluid">
             <div class="row">
 
@@ -49,8 +51,8 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Продажа билетов</h3>
                             <form method="get">
-                                <input type="date" name="dateFrom" value="@if($_GET['dateFrom']) {{ $_GET['dateFrom'] }} @endif">
-                                <input type="date" name="dateTo" value="@if($_GET['dateTo']) {{ $_GET['dateTo'] }} @endif">
+                                <input type="date" name="dateFrom" value="@if(isset($_GET['dateFrom'])) {{ $_GET['dateFrom'] }} @endif">
+                                <input type="date" name="dateTo" value="@if(isset($_GET['dateTo'])) {{ $_GET['dateTo'] }} @endif">
                                 <button type="submit" class="btn btn-primary">Поиск</button>
                             </form>
                         </div>
@@ -74,7 +76,7 @@
                 data: {
                     labels: {!! $data['date'] !!},
                     datasets: [{
-                        label: `Продажа билетов`,
+                        label: `Продажа билетов Дата`,
                         data: {!! $data['price'] !!},
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',

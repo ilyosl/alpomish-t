@@ -58,13 +58,15 @@ class AuthController extends Controller
 
     }
     public function sendSms(PhoneSmsRequest $request, SendSms $action, AuthService $service){
+
         $phone = $request->validated();
+
         $checkUser = User::where(['phone'=>$phone['phone']])->first();
         $code = rand(pow(10, 3), pow(10, 4)-1);
+        $action->sendSms($phone['phone'],'Code: '.$code.' ');
         if(empty($checkUser)){
-//            $action->sendSms('998331108585','Code: '.$code.' ');
             $isSave = $service->storeSmsCode(['code'=>$code, 'phone'=>$phone['phone']]);
-            return ['success'=>1, 'test_code'=>$code,'test_phone'=>$phone['phone'], 'isSave'=>$isSave];
+            return ['success'=>1, 'test_phone'=>$phone['phone'], 'isSave'=>$isSave];
         }else{
             return $service->storeSmsCode(['code'=>$code, 'phone'=>$phone['phone']]);
         }

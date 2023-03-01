@@ -12,7 +12,7 @@ use App\Admin\Controllers\NewsController;
 use App\Admin\Controllers\OrdersController;
 use App\Admin\Controllers\SectionPageController;
 use Illuminate\Routing\Router;
-
+use Illuminate\Support\Facades\Route;
 Admin::routes();
 
 Route::group([
@@ -24,17 +24,25 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->get('/place-control', 'PlaceController@index')->name('place');
+    $router->get('/cashier', 'KassirController@index')->name('cashier');
+    $router->get('/cashier/place', 'KassirController@place')->name('cashier.place');
+    $router->post('/cashier/ticket', 'KassirController@ticket')->name('cashier.ticket');
+    $router->get('/cashier/{event}', 'KassirController@view')->name('cashier.view');
+
     $router->get('/place-control/view', 'PlaceController@view')->name('view');
     $router->post('/place-control/set-ticket', 'PlaceController@setTicket')->name('ticket');
     $router->resource('news', NewsController::class);
     $router->resource('katok-service', KatokServiceController::class);
     $router->resource('app-service', ApplicationForKatokServiceController::class);
     $router->controller(EventController::class)->prefix('/events')->group(function(){
-        \Illuminate\Support\Facades\Route::get('/event-place/{event}','eventPlace');
+        Route::get('/event-place/{event}','eventPlace');
     })->name('admin.events.event-place');
     $router->controller(\App\Admin\Controllers\KatokStaticsController::class)->group(function (){
-        \Illuminate\Support\Facades\Route::get('/katok-statics','index');
+        Route::get('/katok-statics','index');
     });
+  /*  $router->controller(\App\Admin\Controllers\KassirController::class)->group(function (){
+        Route::get('/cashier','index')->name('cashier.index');
+    });*/
     $router->resource('events', EventController::class);
 
     $router->resource('event-times', EventTimeController::class);
