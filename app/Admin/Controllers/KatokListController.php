@@ -35,7 +35,7 @@ class KatokListController extends AdminController
         $grid->column('time', __('Time'));
         $grid->column('type', __('Type'));
         $grid->column('is_read', __('Is read'));
-        $grid->column('sell_date', __('Sell date'));
+        $grid->column('sell_date', __('Sell date'))->sortable();
         $grid->column('exitDate', __('ExitDate'));
         $grid->column('parent_id', __('Parent id'));
         $grid->column('jazo_price', __('Jazo price'));
