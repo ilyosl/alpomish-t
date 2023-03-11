@@ -110,7 +110,24 @@
             }
 
         })
+
     })
+
+    function printercheck() {
+        var data2 = $('#set_ticket_form').serializeJSON();
+
+        var itogo = data2.price * data2.count;
+
+        var currentdate = new Date();
+        var start = currentdate.getDate() + "-"
+            + (currentdate.getMonth()+1)  + "-"
+            + currentdate.getFullYear() + "  "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+        
+
+    }
 </script>
 <style>
     .radio label {

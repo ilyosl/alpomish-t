@@ -26,6 +26,7 @@ Route::group([
     $router->get('/place-control', 'PlaceController@index')->name('place');
     $router->get('/cashier', 'KassirController@index')->name('cashier');
     $router->get('/cashier/place', 'KassirController@place')->name('cashier.place');
+    $router->get('/cashier/check-ticket', 'KassirController@checkTest')->name('cashier.checkticket');
     $router->post('/cashier/ticket', 'KassirController@ticket')->name('cashier.ticket');
     $router->get('/cashier/{event}', 'KassirController@view')->name('cashier.view');
 

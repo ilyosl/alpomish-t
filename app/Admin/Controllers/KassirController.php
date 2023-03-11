@@ -51,17 +51,21 @@ class KassirController extends Controller
         return $content->title('Управления местами')
             ->view('admin.cashier.page',compact("places", 'event', 'tmpPlace','convert'));
     }
+    public function checkTest(){
+        return view('admin.cashier.ticketPdf');
+    }
     public function ticket()
     {
-      /*  $pdf = PDF::loadView('admin.cashier.ticketPdf', [
+        $pdf = PDF::loadView('admin.cashier.ticketPdf', [
             'title' => 'CodeAndDeploy.com Laravel Pdf Tutorial',
             'description' => 'This is an example Laravel pdf tutorial.',
             'footer' => 'by <a href="https://codeanddeploy.com">codeanddeploy.com</a>'
         ]);
 
-        return $pdf->download('sample.pdf');*/
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
         return $pdf->stream();
+        /*$pdf = App::make('dompdf.wrapper');
+
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();*/
     }
 }
