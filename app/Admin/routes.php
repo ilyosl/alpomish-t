@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Controllers\AdditinalService;
 use App\Admin\Controllers\ApplicationForKatokServiceController;
 use App\Admin\Controllers\BlockController;
 use App\Admin\Controllers\EventController;
@@ -53,5 +54,6 @@ Route::group([
     $router->resource('blocks', BlockController::class);
     $router->resource('orders', OrdersController::class);
     $router->resource('katok-qrcode', KatokListController::class);
+    $router->resource('additional-service', AdditinalService::class);
 
 });
