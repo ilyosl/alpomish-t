@@ -25,6 +25,7 @@ class KassaController extends Controller
                 || $qr['time'] == 31500
                 || $qr['time'] == 24500
                 || $qr['time'] == 28000
+		|| $qr['time'] == 18000
             ){
                 $time = 30;
             }elseif(
