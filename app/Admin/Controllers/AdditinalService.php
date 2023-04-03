@@ -3,10 +3,14 @@
 namespace App\Admin\Controllers;
 
 use App\Models\AdditionalServiceModel;
+use App\Services\katokQrcode;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Box;
+use Illuminate\Http\Request;
 
 class AdditinalService extends AdminController
 {
@@ -15,7 +19,7 @@ class AdditinalService extends AdminController
      *
      * @var string
      */
-    protected $title = 'AdditionalServiceModel';
+    protected $title = 'Доп услуги';
 
     /**
      * Make a grid builder.
@@ -36,7 +40,7 @@ class AdditinalService extends AdminController
         });
         $grid->column('payment', __('Тип оплаты'));
         $grid->column('price', __('Стоимость'));
-        $grid->column('sell_date', __('Дата продажи'));
+        $grid->column('sell_date', __('Дата продажи'))->sortable();
         $grid->column('count', __('Колечество'));
 
         return $grid;
