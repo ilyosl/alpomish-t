@@ -20,12 +20,18 @@ class KatokStaticsController extends \App\Http\Controllers\Controller
             $dateTo = date('Y-m-d', time());
         }
         $dataKatok = $service->getDateRangeStat($dateFrom,$dateTo);
+        $dataKatokAdd = $service->getDateRangeStatAdd($dateFrom,$dateTo);
         $staticType = $service->getStaticByType();
         $dayStatic = $service->serializeDayStatic();
         $kataDate = [
             'date'=> json_encode($dataKatok['date']),
             'price'=> json_encode($dataKatok['price']),
         ];
+        $kataDateAdd = [
+            'date'=> json_encode($dataKatokAdd['date']),
+            'price'=> json_encode($dataKatokAdd['price']),
+        ];
+
         $staticKatok = [
             'type'=> json_encode($staticType['type']),
             'price'=> json_encode($staticType['price']),
@@ -48,6 +54,7 @@ class KatokStaticsController extends \App\Http\Controllers\Controller
                 'sellTickets'=>$sellTickets->render(),
                 'sellTicketsToday'=>$sellTicketsToday->render(),
                 'data'=>$kataDate,
+                'dataAdd'=>$kataDateAdd,
                 'priceType'=>$staticKatok,
                 'priceTypeDay'=>$staticKatokDay,
             ]);

@@ -63,6 +63,24 @@ class katokQrcode
             return false;
         }
     }
+    public function getDateRangeStatAdd($dateFrom,$dateTo){
+
+        $query = "select  sum(price*count) as price_sum, date(sell_date) as sell_date
+            from \"additional_service\"
+            where sell_date >= '".$dateFrom."' and sell_date <= '".$dateTo."'
+            GROUP BY date(sell_date) ORDER BY sell_date ASC";
+        $qrCode = DB::select($query);
+
+        $resData = [];
+        $priceData = [];
+        if($qrCode){
+            foreach ($qrCode as $code){
+                $resData[] = $code->sell_date;
+                $priceData[] = ['t'=> $code->sell_date, 'y'=>$code->price_sum];
+            }
+        }
+        return ['date'=>$resData, 'price'=>$priceData];
+    }
     public function getDateRangeStat($dateFrom,$dateTo){
 
          $query = "select sum(price) as price, date(sell_date) as sell_date
