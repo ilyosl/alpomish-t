@@ -10,5 +10,5 @@ class OrderSubsModel extends Model
     use HasFactory;
     protected $table = 'order_subs';
 
-    protected $fillable = ['ice_subs_id','payment','sell_date','price','status'];
+    protected $fillable = ['ice_subs_id','payment','sell_date','price','status','count_ticket'];
 }

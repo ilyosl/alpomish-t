@@ -47,6 +47,7 @@ class IceSubsController extends Controller
             'ice_subs_id'=>$data['type'],
             'payment'=>$data['payment'],
             'price'=>$data['price'],
+            'count_ticket'=>$data['count_ticket'],
             'status'=>2,
             'sell_date'=>date('Y-m-d H:i', time())
         ]);
