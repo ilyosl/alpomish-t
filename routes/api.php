@@ -32,6 +32,9 @@ Route::controller(\App\Http\Controllers\Api\OrdersController::class)->prefix('/o
     Route::get('/view/{id}', 'edit');
     Route::get('/', 'index');
 });
+Route::controller(\App\Http\Controllers\Api\IceSubsController::class)->prefix('/subs')->group(function (){
+    Route::get('list','list');
+});
 Route::controller(\App\Http\Controllers\Api\KatokServiceController::class)->prefix('/katok-service')->group(function (){
     Route::get('/', 'index');
     Route::post('/', 'store')->middleware('auth:sanctum');
