@@ -6,6 +6,7 @@ use App\Admin\Controllers\BlockController;
 use App\Admin\Controllers\EventController;
 use App\Admin\Controllers\EventPlaceController;
 use App\Admin\Controllers\EventTimeController;
+use App\Admin\Controllers\IceSubsController;
 use App\Admin\Controllers\KatokListController;
 use App\Admin\Controllers\KatokServiceController;
 use App\Admin\Controllers\NewsController;
@@ -55,5 +56,6 @@ Route::group([
     $router->resource('orders', OrdersController::class);
     $router->resource('katok-qrcode', KatokListController::class);
     $router->resource('additional-service', AdditinalService::class);
+    $router->resource('ice-subs', IceSubsController::class);
 
 });
