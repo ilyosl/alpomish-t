@@ -15,6 +15,7 @@ class IceSubsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'name_subs'=>$this->name_subs,
             'price'=>$this->price,
             'status'=>$this->status
