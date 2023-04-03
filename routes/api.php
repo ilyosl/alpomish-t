@@ -34,6 +34,7 @@ Route::controller(\App\Http\Controllers\Api\OrdersController::class)->prefix('/o
 });
 Route::controller(\App\Http\Controllers\Api\IceSubsController::class)->prefix('/subs')->group(function (){
     Route::get('list','list');
+    Route::post('add','store');
 });
 Route::controller(\App\Http\Controllers\Api\KatokServiceController::class)->prefix('/katok-service')->group(function (){
     Route::get('/', 'index');
