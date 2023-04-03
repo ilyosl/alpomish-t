@@ -26,7 +26,8 @@ class OrderSubsRequest extends FormRequest
         return [
             'type'=>'required',
             'payment'=>'required',
-            'price'=>'required'
+            'price'=>'required',
+            'count_ticket'=>'required',
         ];
     }
 }
