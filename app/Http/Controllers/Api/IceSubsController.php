@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderSubsRequest;
 use App\Http\Resources\IceSubsResource;
 use App\Models\IceSubsModel;
+use App\Models\OrderSubsModel;
 use Illuminate\Http\Request;
 
 class IceSubsController extends Controller
@@ -38,9 +40,18 @@ class IceSubsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderSubsRequest $request)
     {
-        //
+        $data = $request->validated();
+        $addOrder = OrderSubsModel::query()->create([
+            'ice_subs_id'=>$data['type'],
+            'payment'=>$data['payment'],
+            'price'=>$data['price'],
+            'status'=>2,
+            'sell_date'=>date('Y-m-d H:i', time())
+        ]);
+
+        return $addOrder;
     }
 
     /**
