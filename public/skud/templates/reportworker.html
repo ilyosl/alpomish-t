@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Отчет по сотруднику {{worker_name}} за месяц {{year}}-{{month}} </h3>
+{{selectmonth|raw}}
+<hr>
+<div class="row">
+  <div class="col-12">
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Дата</th>
+        <th>Время прихода</th>
+        <th>Время ухода</th>
+        <th>Время</th>
+    </tr>
+    </thead>
+<tbody>
+{% for report in report %}
+<tr>
+    <td>{{loop.index}}</td>
+    <td>{{report.date}}</td>
+    <td>{{report.enter_date}}</td>
+    <td>{{report.exit_date}}</td>
+    <td>
+        {% set sum = report.time %}
+        {% set loopOutput %}
+        {% endset %}
+        {% set hour = sum/60 %}
+        {{ hour|round(0,'floor') }}:{{ sum - hour|round(0,'floor') * 60 }}
+    </td>
+</tr>
+    {% endfor %}
+</tbody>
+</table>
+  </div>
+</div>
+{% endblock %}

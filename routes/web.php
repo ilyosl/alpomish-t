@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::domain('kassa.'.env('APP_URL'))->controller(\App\Http\Controllers\KassirController::class)->group(function (){
+/*Route::domain('kassa.'.env('APP_URL'))->controller(\App\Http\Controllers\KassirController::class)->group(function (){
     Route::get('/', 'index');
     Route::post('/get-info-by-qr', 'getInfoByQr');
     Route::get('/add-person', 'addPerson');
-});
+});*/
 Route::domain('admin.'.env('APP_URL'))->middleware('auth')->group(function(){
     Route::controller(\App\Http\Controllers\admin\AdminController::class)->group(function() {
         Route::get('/', 'index');

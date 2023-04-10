@@ -1,0 +1,8 @@
+{
+    "require": {
+        "thingengineer/mysqli-database-class": "dev-master",
+        "twig/twig": "^3.0",
+        "aeon-php/calendar": "^1.0",
+        "aeon-php/calendar-twig": "^0.11.0"
+    }
+}

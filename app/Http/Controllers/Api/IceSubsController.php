@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class IceSubsController extends Controller
 {
     public function list(){
-        return IceSubsResource::collection(IceSubsModel::query()->get());
+        return IceSubsResource::collection(IceSubsModel::query()->orderBy("id","ASC")->get());
     }
     /**
      * Display a listing of the resource.

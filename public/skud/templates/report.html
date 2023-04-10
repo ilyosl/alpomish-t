@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Отчет по месяцам</h3>
+{{selectmonth|raw}}
+<hr>
+<div class="row">
+  <div class="col-12">
+
+    <table class="table table-bordered table-sm">
+      <thead>
+      <tr>
+      <th>FIO</th>
+      {% for days in days %}
+      <th>{{days}}</th>
+      {% endfor%}
+      </tr>
+      </thead>
+      <tbody>
+
+      {% for workers in workers %}
+      <tr><td><a href="reportworker.php?worker_id={{workers.id}}&workername={{workers.name}}&year={{year}}&month={{month}}">{{workers.name}}</a></td>
+        {% for daysdate in daysdate %}
+        <td>
+          {% set sum = 0 %}
+          {% set loopOutput %}
+          {% for report in report %}
+
+          {% if workers.id == report.worker_id and report.date == daysdate %}
+          {% set sum = sum + report.time %}
+
+          {% endif %}
+          {% endfor %}
+          {% endset %}
+          {% if sum != 0 %}
+          {% set hour = sum/60 %}
+          {{ hour|round(0,'floor') }}:{{ sum - hour|round(0,'floor') * 60 }}
+          {% endif %}
+        </td>
+        {% endfor%}
+
+
+      </tr>
+      {% endfor%}
+
+
+
+
+      </tbody>
+
+
+    </table>
+
+  </div>
+</div>
+{% endblock %}

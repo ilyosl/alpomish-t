@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Сотрудники</h1>
+{% if error == '1' %}
+<script type="text/javascript">
+    alert("ERROR");
+</script>
+{% endif %}
+
+{% if mod == 'add' %}
+<form action="worker.php?mod=addsave" method="post">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Ф.И.О.</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="fio">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Сохранить</button>
+    </div>
+</form>
+{% elseif mod == "edit" %}
+<h2>Редактирование</h2>
+<form action="worker.php?mod=editsave" method="post">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Ф.И.О.</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="fio" value="{{result.name}}">
+        <input type="hidden" name="worker_id" value="{{result.id}}">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Сохранить</button>
+    </div>
+</form>
+{% elseif mod == "addphoto" %}
+<div class="row">
+    <div class="text-center">
+        <form method="post" action="?mod=addphotosave"  enctype="multipart/form-data">
+        <label class=newbtn>
+            <img id="blah" src="img/user.png" width="100%">
+            <input id="pic" class='pis' onchange="readURL(this);" type="file" name="photo">
+            <input type="hidden" name="worker_id" value="{{worker_id}}"><br><br><br>
+            <button type="submit" class="btn btn-primary btn-lg mb-3">Сохранить</button>
+        </label>
+        </form>
+    </div>
+</div>
+
+{% elseif mod=="delete" %}
+
+delete
+{% else %}
+<br><a href="?mod=add" class="btn btn-success">Добавить сотрудника</a><br><br>
+<table class="table table-bordered">
+    <thead><tr><th>#</th><th>Ф.И.О.</th><th>Фото</th><th>Действие</th></tr></thead>
+    <tbody>
+    {% for worker in workers %}
+    <tr><td>{{loop.index}}</td><td>{{worker.name}}</td><td>{% if worker.img == '' %}<a href="?mod=addphoto&worker_id={{worker.id}}">Add</a>{% else %}<img src="upload/t/{{worker.img}}" width="60"><br><a href="?mod=addphoto&worker_id={{worker.id}}">UPDATE FOTO</a>{% endif %}</td><td><a href="?mod=edit&worker_id={{worker.id}}">Редактировать</a> <a href="?mod=delete&worker_id={{worker.id}}" onclick="return confirm('Вы уверены?')">Удалить</a></td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+
+{% endblock %}
+
+
+{% block foot %}
+
+<script>
+
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<style>
+
+
+    #pic{
+        display: none;
+    }
+
+    .newbtn{
+        cursor: pointer;
+    }
+    #blah{
+        max-width:70%;
+        height:80%;
+        margin-top:20px;
+    }
+
+</style>
+
+
+
+{% endblock %}
